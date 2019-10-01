@@ -7,6 +7,8 @@ Le but est d'être le premier joueur a acheter une étoile a la fin du plateau. 
 
 - Les exercices consistent en des épreuves de différentes matières (Maths, Anglais, Francais). Le pourcentage de bonne réponse défini la réussite a l'épreuve et en conséquence le nombre de pièces données (e.g. : 3/6 = 50% = 0.5 * max_coins)
 
+- 2 joueurs en tour par tour.
+
 ### Loot table
 
 Chaque case est tel que :
@@ -16,3 +18,25 @@ Chaque case est tel que :
 | Bonus        | +3                            |
 | Malus        | -3                            |
 | Exercice     | (Bonnes réponses / Total questions) * Max pièces par cases |
+
+
+### Plateau
+
+Fais pour un terminal de 80x24 caractères.
+
+```
+                                      80 chars
+<------------------------------------------------------------------------------>
+|  [Debut] - [B] - [M] - [E] - [E] - [B] - [E] - [M] - [E] - [B] - [M] - [S]   | ↑ 1
+|                               |                       |                      | | 2
+|                              [B] - [E] - [E] - [M] - [E]                     | | 3
+|                                                                              | | 4
+|                                                                              | | 5
+|  Tour au $JOUEUR                                                             | | 6
+|  Joueur 1 : $p1coins                                                         | | 7
+|  Joueur 2 : $p2coins                                                         | | 8
+|  Tour n°$tour                                                                | | 9
+|                                                                              | | 10
+|  [Action en cours]                                                           | | 11
+| 
+```
