@@ -1,4 +1,5 @@
 # Study Party
+
 Jeu éducatif basé sur le concept de Mario Party.
 
 Le but est d'être le premier joueur a acheter une étoile a la fin du plateau. Le plateau est fait de cases qui peuvent faire perdre des pièces ou en gagner au joueur, ou qui font faire un exercice selon lequel on gagne plus ou moins de pièces (selon la réussite).
