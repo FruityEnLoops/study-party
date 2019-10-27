@@ -1,4 +1,21 @@
 # Study Party
+```
+ #####                            
+#     # ##### #    # #####  #   # 
+#         #   #    # #    #  # #  
+ #####    #   #    # #    #   #   
+      #   #   #    # #    #   #   
+#     #   #   #    # #    #   #   
+ #####    #    ####  #####    #   
+                                  
+      ######                            
+      #     #   ##   #####  ##### #   # 
+      #     #  #  #  #    #   #    # #  
+      ######  #    # #    #   #     #   
+      #       ###### #####    #     #   
+      #       #    # #   #    #     #   
+      #       #    # #    #   #     #   
+```
 
 Jeu éducatif basé sur le concept de Mario Party.
 
@@ -21,23 +38,37 @@ Chaque case est tel que :
 | Exercice     | ((Bonnes réponses / Total questions) * Max pièces par cases) + 3 |
 
 
-### Plateau
+### Idée de plateau
 
 Fais pour un terminal de 80x24 caractères.
 
 ```
                                       80 chars
 <------------------------------------------------------------------------------>
-|  [Debut] - [B] - [M] - [E] - [E] - [B] - [E] - [M] - [E] - [B] - [M] - [S]   | ↑ 1
-|                               |                       |                      | | 2
-|                              [B] - [E] - [E] - [M] - [E]                     | | 3
-|                                                                              | | 4
-|                                                                              | | 5
-|  Tour au $JOUEUR                                                             | | 6
-|  Joueur 1 : $p1coins                                                         | | 7
-|  Joueur 2 : $p2coins                                                         | | 8
-|  Tour n°$tour                                                                | | 9
-|                                                                              | | 10
-|  [Action en cours]                                                           | | 11
-| 
+|                                                                              | 1
+|  [Debut] - [B] - [M] - [E] - [E] - [B] - [E] - [M] - [E] - [B] - [M] - [S]   | 2
+|                               |                       |                      | 3
+|                              [B] - [E] - [E] - [M] - [E]                     | 4
+|                                                                              | 5
+|                                                                              | 6
+|  Tour au $JOUEUR                                                             | 7
+|  Joueur 1 : $p1coins                                                         | 8
+|  Joueur 2 : $p2coins                                                         | 9
+|  Tour n°$tour                                                                | 10
+|                                                                              | 11
+|  [Action possibles]                                                          | 12
 ```
+
+### Taches a faire
+
+#### Base du jeu
+
+- Menu (Jouer, quitter, options? (> nombre max de tours, limites, conditions de victoire), choisir le nom des joueurs)
+- Interface de jeu : plateau, choix du joueur pendant un tour, affichage des points / statut de la partie (numéro du tour / nombre max de tours)
+- Interface exercices : questions, affichage
+
+#### Additions possibles
+
+- Animations (lancement de dé, victoire / perte?)
+- ASCII Art par joueur, plutôt que de les catégoriser par un nom (personnages?)
+- Effets sonores?
