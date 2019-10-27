@@ -32,12 +32,12 @@ Le but est d'être le premier joueur a acheter une étoile a la fin du plateau. 
 
 Chaque case est tel que :
 
-| Type de case | Effet                         |
-| ------------ | ----------------------------- |
-| Bonus        | +3                            |
-| Malus        | -3                            |
-| Exercice     | ((Bonnes réponses / Total questions) * Max pièces par cases) + 3 |
-
+| Type de case | Effet                                                               |
+| ------------ | ------------------------------------------------------------------- |
+| Bonus        | +3 💰                                                               |
+| Malus        | -3 💰                                                               |
+| Exercice     | ((Bonnes réponses / Total questions) * Max pièces par cases) + 3 💰 | 
+| Étoile       | +1 🌟 |
 
 ### Idée de plateau
 
@@ -72,4 +72,8 @@ Fais pour un terminal de 80x24 caractères.
 
 - Animations (lancement de dé, victoire / perte?)
 - ASCII Art par joueur, plutôt que de les catégoriser par un nom (personnages?)
-- Effets sonores?
+- Effets sonores? Musiques de fond?
+
+#### Improbable
+
+- Interface graphique
