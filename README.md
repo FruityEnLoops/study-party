@@ -21,12 +21,18 @@
 Jeu éducatif basé sur le concept de Mario Party.
 
 Le but est d'être le premier joueur a acheter une étoile a la fin du plateau. Le plateau est fait de cases qui peuvent faire perdre des pièces ou en gagner au joueur, ou qui font faire un exercice selon lequel on gagne plus ou moins de pièces (selon la réussite).
+
 - Pour avancer sur le plateau, le joueur lance le dès, puis avance x pas.
+
 - Pour acheter une étoile, il faut avoir 15 pièces ou plus et arriver a la fin du plateau. Si le joueur n'a pas asser de pièces, alors il lance un dé de nouveau mais recule x pas.
 
 - Les exercices consistent en des épreuves de différentes matières (Maths, Anglais, Francais). Le pourcentage de bonne réponse défini la réussite a l'épreuve et en conséquence le nombre de pièces données (e.g. : 3/6 = 50% = 0.5 * max_coins)
 
 - 2 joueurs en tour par tour.
+
+- A la fin de chaque tour, chaque joueur fait un exercice, comme si il était tombé sur une case exercice.
+
+- Le type d'exercice est determiné aléatoirement a chaque fois.
 
 ### Loot table
 
@@ -64,7 +70,7 @@ Fais pour un terminal de 80x24 caractères.
 
 #### Base du jeu
 
-- Menu (Jouer, quitter, options? (> nombre max de tours, limites, conditions de victoire), choisir le nom des joueurs)
+- Menu (Jouer, quitter, choisir le nom des joueurs)
 - Interface de jeu : plateau, choix du joueur pendant un tour, affichage des points / statut de la partie (numéro du tour / nombre max de tours)
 - Interface exercices : questions, affichage
 
@@ -73,6 +79,7 @@ Fais pour un terminal de 80x24 caractères.
 - Animations (lancement de dé, victoire / perte?)
 - ASCII Art par joueur, plutôt que de les catégoriser par un nom (personnages?)
 - Effets sonores? Musiques de fond?
+- Options (nombre max de tours, limites, conditions de victoire, taille du dé (1-6, 2-10...)),
 
 #### Improbable
 
