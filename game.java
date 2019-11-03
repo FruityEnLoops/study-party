@@ -27,7 +27,8 @@ class game extends Program{
         menuart[14] = "###             ###     ###     ###    ###       ###           ###          ";
 
         /* Menu */
-
+        
+        cleanscreen();
         boolean fin = false;
         String entreeUtilisateur = ""; /* Pourquoi un String et non un int? parce que si on tappe un String durant le readInt, on a une exception et le programme s'arrête */
         printart(menuart);
@@ -70,7 +71,7 @@ class game extends Program{
 
     String chooseName(String user){
         cleanscreen();
-        print(user + " : Entrez votre nom\n");
+        println(user + " : Entrez votre nom");
         return readString();
     }
 }
