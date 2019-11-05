@@ -6,10 +6,6 @@ class game extends Program{
 
     void algorithm(){
         
-        /* La fonction clearScreen() a l'air d'avoir des legers problemes, un quick fix est de bourrer des newlines. */
-        
-        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        
         /* Initialisation des ASCII Arts dans des listes */
 
         String[] menuart = new String[15];
@@ -58,7 +54,7 @@ class game extends Program{
             clearScreen();
             println("Partie en combien de tours?");
             int maxTour = readInt();
-            String p1name = chooseName("Jou\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\neur 1");
+            String p1name = chooseName("Joueur 1");
             String p2name = chooseName("Joueur 2");
             clearScreen();
             println("P1 : " + p1name);
@@ -75,7 +71,7 @@ class game extends Program{
         clearScreen();
         while(!gagne && tourActuel <= maxTour){
             printart(board);
-            printstatus(tourActuel, p1name, p2name, p1coins, p2coins);
+            printstatus(tourActuel, p1name, p2name, p1coins, p2coins, maxTour);
             println("1. Lancer le dé");
             println("2. Debug : avancer le tour");
             String entreeUtilisateur = choix();
@@ -112,8 +108,8 @@ class game extends Program{
         }
     }
 
-    void printstatus(int tourActuel, String p1name, String p2name, int p1coins, int p2coins){
-        println("\nTour actuel : " + tourActuel);
+    void printstatus(int tourActuel, String p1name, String p2name, int p1coins, int p2coins, int maxTour){
+        println("\nTour actuel : " + tourActuel + "/" + maxTour);
         if(tourActuel % 2 == 0){
             println("A " + p2name + " de jouer!");
         } else {
