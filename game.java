@@ -40,23 +40,27 @@ class game extends Program{
         /* Menu */
         
         clearScreen();
+        cursor(0,0);
         boolean fin = false;
         printart(menuart);
         println("1. Jouer");
         println("2. Quitter");
         String entreeUtilisateur = choix();
         clearScreen();
+        cursor(0,0);
         if(equals(entreeUtilisateur,"1")){
             int tourActuel = 1;
             int p1coins = 0;
             int p2coins = 0;
             boolean gagne = false;
             clearScreen();
+            cursor(0,0);
             println("Partie en combien de tours?");
             int maxTour = readInt();
             String p1name = chooseName("Joueur 1");
             String p2name = chooseName("Joueur 2");
             clearScreen();
+            cursor(0,0);
             println("P1 : " + p1name);
             println("P2 : " + p2name);
             println("Appuyer sur entrée pour démarrer la partie.");
@@ -69,6 +73,7 @@ class game extends Program{
 
     void game(int tourActuel, int p1coins, int p2coins, boolean gagne, String p1name, String p2name, int maxTour, String[] board){
         clearScreen();
+        cursor(0,0);
         while(!gagne && tourActuel <= maxTour){
             printart(board);
             printstatus(tourActuel, p1name, p2name, p1coins, p2coins, maxTour);
@@ -85,6 +90,7 @@ class game extends Program{
                 gagne=true;
             }
             clearScreen();
+            cursor(0,0);
         }
     }
     
@@ -122,6 +128,7 @@ class game extends Program{
 
     String chooseName(String user){
         clearScreen();
+        cursor(0,0);
         println(user + " : Entrez votre nom");
         return readString();
     }
