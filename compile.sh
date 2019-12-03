@@ -1,4 +1,7 @@
 #!/bin/bash
-cp ./src/Game.java ./
-javac -cp ./lib/ap.jar Game.java
-rm ./Game.java
+export SOURCES=src
+export CLASSES=classes
+export CLASSPATH=`find lib -name "*.jar" | tr '\n' ':'`
+
+javac -cp ${CLASSPATH} -sourcepath ${SOURCES} -d ${CLASSES} $@ `find src -name "*.java"`
+cp ressources/* classes/
