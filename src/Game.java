@@ -1,4 +1,4 @@
-class game extends Program{
+class Game extends Program{
 
     /* Résumé des fonctions
     printart() : Affiche toute les lignes d'une liste (pour les ASCII Arts)
