@@ -23,14 +23,14 @@
 ### Game Board
 
 ```
------->
+------>     1       2       3
 [Début] - [Exo] - [Exo] - [Exo] 
-     /                          \
- [Exo]                           [Bonus]
+     /                          \   
+ [Exo]                           [Bonus] 4
    |                                |
-[Malus]                           [Exo]
+[Malus]                           [Exo] 5
    |                                |
- [Ex]                            [Malus]
+ [Ex]                            [Malus] 6
      \                          /
        [Bonus] - [Exo] -  [Exo]
 ```
