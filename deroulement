@@ -1,0 +1,16 @@
+Déroulement du jeu
+- Afficher la carte 
+- Choix de l'action
+    - Lancer le dé
+    - Jouer item?
+        - Lancer le dé
+- Tirer
+- Afficher le lancer
+- Avancer
+- Action selon la case
+    - Exercice
+    - Boutique
+    - Malus / Bonus
+- Vérifier que la partie n'est pas finie
+- Effacer l'écran pour le prochain tour
+- Boucler

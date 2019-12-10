@@ -29,12 +29,12 @@ class Game extends Program{
         board[0] = "------>";
         board[1] = "[Début] - [Exo] - [Exo] - [Exo] ";
         board[2] = "    /                          \\ ";
-        board[3] = " [Exo]                           [Bonus]";
-        board[4] = "   |                                |";
-        board[5] = "[Malus]                           [Exo]";
-        board[6] = "   |                                |";
-        board[7] = " [Exo]                           [Malus]";
-        board[8] = "    \\                           /";
+        board[3] = " [Exo]                        [Bonus]";
+        board[4] = "   |                             |";
+        board[5] = "[Malus]                        [Exo]";
+        board[6] = "   |                             |";
+        board[7] = " [Exo]                        [Malus]";
+        board[8] = "    \\                          /";
         board[9] = "      [Bonus] - [Exo] -  [Exo]";
         
         /* Menu */
@@ -83,7 +83,7 @@ class Game extends Program{
             if(equals(entreeUtilisateur, "1")){
                 println("Lancer le dé");
             } else if(equals(entreeUtilisateur, "2")){
-                println("Avance du tour");
+                println("AvaAvancence du tour");
             }
             tourActuel++;
             if(tourActuel > maxTour){
@@ -131,5 +131,19 @@ class Game extends Program{
         cursor(0,0);
         println(user + " : Entrez votre nom");
         return readString();
+    }
+
+    int nombreAlea(int min, int max){
+        if(min > max){
+            return -1;
+        }
+        double alea = random();
+        return((int) (alea * (max - min)) + min);
+    }
+
+    void testNombreAlea(){
+        int test = nombreAlea(4, 9); /* on stocke dans une variable car sinon on execute deux fois la fonction soit deux nombre potentiellement différents */
+        assertTrue(test >= 4 && test <= 9);
+        assertTrue(nombreAlea(9, 4) == -1);
     }
 }
