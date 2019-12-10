@@ -49,22 +49,24 @@ class Game extends Program{
         clearScreen();
         cursor(0,0);
         if(equals(entreeUtilisateur,"1")){
+            /* Initialisation des variables de la partie */
             int tourActuel = 1;
             int p1coins = 0;
             int p2coins = 0;
-            boolean gagne = false;
             clearScreen();
             cursor(0,0);
+            /* Définition des options de la partie par l'utilisateur */
             println("Partie en combien de tours?");
-            int maxTour = readInt();
+            int maxTour = readInt(); /* Il faudra remplacer ce readInt a terme par un readString */
             String p1name = chooseName("Joueur 1");
             String p2name = chooseName("Joueur 2");
             clearScreen();
             cursor(0,0);
+            /* Écran de confirmation */
             println("P1 : " + p1name);
             println("P2 : " + p2name);
             println("Appuyer sur entrée pour démarrer la partie.");
-            String throwaway = readString();
+            String attente = readString();
             game(tourActuel, p1coins, p2coins, gagne, p1name, p2name, maxTour, board);
         } else if(equals(entreeUtilisateur,"2")){
             println("Quitter");
@@ -72,22 +74,22 @@ class Game extends Program{
     }
 
     void game(int tourActuel, int p1coins, int p2coins, boolean gagne, String p1name, String p2name, int maxTour, String[] board){
+        /* Initialisation de variables propres a la partie */
         int positionp1 = 0;
         int positionp2 = 0;
         int p1stars = 0;
         int p2stars = 0;
         clearScreen();
         cursor(0,0);
-        while(!gagne && tourActuel <= maxTour){
+        while(tourActuel <= maxTour){
+            /* Affichage en deux temps, le plateau puis les infos de la partie */
             printart(board);
             printstatus(tourActuel, p1name, p2name, p1coins, p2coins, maxTour, positionp1, positionp2);
             println("1. Lancer le dé");
             println("2. Jouer un objet");
             String entreeUtilisateur = choix();
             if(equals(entreeUtilisateur, "1")){
-
-                /* Mouvement sur le plateau */
-    
+                /* Mouvement sur le plateau */    
                 int lancer = nombreAlea(1, 6);
                 /* On déduit qui joue */
                 if(tourActuel % 2 == 0){
@@ -96,25 +98,27 @@ class Game extends Program{
                     positionp1 = bouger(positionp1, lancer);
                 }
             } else if(equals(entreeUtilisateur, "2")){
-                println("Avancement du tour");
+                /* Afficher les objets du joueur actuel */
+                println("Menu pour jouer un objet a faire");
+                /* Choisir l'objet */
+                /* Lancer le dé, bouger, etc */
             }
             tourActuel++;
-            gagne = verifierFinDuJeu(tourActuel, maxTour);
             clearScreen();
             cursor(0,0);
-
         }
         clearScreen();
         cursor(0,0);
+        /* Affichage du gagnant */
         String gagnant = determinerGagnant(p1name, p2name, p1coins, p2coins, p1stars, p2stars);
         println("Merci d'avoir joué!");
         println("Gagnant de la partie : " + gagnant);
-        String a = readString();
+        String attente = readString();
     }
     
     String choix(){
         /* Note : cette fonction permet de controller si l'utilisateur entre 1 ou 2.
-        On a pas besoin de plus, mais cette fonction peut être améliorée. */
+        On a pas besoin de plus, mais cette fonction sera (peut être) améliorée. */
         boolean fin = false;
         String entreeUtilisateur = ""; /* Pourquoi un String et non un int? parce que si on tappe un String durant le readInt, on a une exception et le programme s'arrête */
         while(!fin){
@@ -126,12 +130,14 @@ class Game extends Program{
         return entreeUtilisateur;
     }
 
+    /* Affiche le contenu d'une liste. Utilisé pour afficher des textes plus "graphiques" */
     void printart(String[] list){
         for(int i = 0; i < length(list); i++){
             println(list[i]);
         }
     }
 
+    /* Affiche l'etat de la parti en cours : le tour actuel, qui joue, les pieces, la position des joueurs */
     void printstatus(int tourActuel, String p1name, String p2name, int p1coins, int p2coins, int maxTour, int positionp1, int positionp2){
         println("\nTour actuel : " + tourActuel + "/" + maxTour);
         if(tourActuel % 2 == 0){
@@ -147,6 +153,7 @@ class Game extends Program{
         println(p2name + " : " + positionp2);
     }
 
+    /* Controle de saisie basique pour de l'entrée de nom (peut être utilisé pour d'autres contextes) */
     String chooseName(String user){
         clearScreen();
         cursor(0,0);
@@ -154,16 +161,7 @@ class Game extends Program{
         return readString();
     }
 
-    boolean verifierFinDuJeu(int tourActuel, int maxTour){
-        return tourActuel > maxTour;
-    }
-
-    void testVerifierFinDuJeu(){
-        assertTrue(verifierFinDuJeu(16, 15));
-        assertFalse(verifierFinDuJeu(15,15));
-        assertFalse(verifierFinDuJeu(2, 15));
-    }
-
+    /* Donne un nombre aléatoire entre le min et le max. Renvoi -1 si saisie invalide de min/max */
     int nombreAlea(int min, int max){
         if(min > max){
             return -1;
@@ -178,6 +176,7 @@ class Game extends Program{
         assertTrue(nombreAlea(9, 4) == -1);
     }
 
+    /* Calcule la position après un déplacement */
     int bouger(int position, int lancer){
         position = position + lancer;
         /* Le plateau fait 12 cases ; on ne doit pas dépasser 12. Si on dépasse 12, on repasse a 1 (et non a 0) car on fonctionne avec un numéro de case */
@@ -192,6 +191,7 @@ class Game extends Program{
         assertEquals(2, bouger(11, 2));
     }
 
+    /* Determine qui a le plus d'étoiles, ou qui a le plus de pieces si les deux joueurs ont le même nombre d'étoiles */
     String determinerGagnant(String p1name, String p2name, int p1coins, int p2coins, int p1stars, int p2stars){
         if(p1stars == p2stars){
             if(p1coins > p2coins){
