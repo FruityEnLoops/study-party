@@ -67,13 +67,13 @@ class Game extends Program{
             println("P2 : " + p2name);
             println("Appuyer sur entrée pour démarrer la partie.");
             String attente = readString();
-            game(tourActuel, p1coins, p2coins, gagne, p1name, p2name, maxTour, board);
+            game(tourActuel, p1coins, p2coins, p1name, p2name, maxTour, board);
         } else if(equals(entreeUtilisateur,"2")){
             println("Quitter");
         }
     }
 
-    void game(int tourActuel, int p1coins, int p2coins, boolean gagne, String p1name, String p2name, int maxTour, String[] board){
+    void game(int tourActuel, int p1coins, int p2coins, String p1name, String p2name, int maxTour, String[] board){
         /* Initialisation de variables propres a la partie */
         int positionp1 = 0;
         int positionp2 = 0;
