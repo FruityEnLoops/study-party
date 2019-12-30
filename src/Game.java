@@ -51,40 +51,33 @@ class Game extends Program{
         if(equals(entreeUtilisateur,"1")){
             /* Initialisation des variables de la partie */
             int tourActuel = 1;
-            int p1coins = 0;
-            int p2coins = 0;
             clearScreen();
             cursor(0,0);
             /* Définition des options de la partie par l'utilisateur */
             println("Partie en combien de tours?");
             int maxTour = readInt(); /* Il faudra remplacer ce readInt a terme par un readString */
-            String p1name = chooseName("Joueur 1");
-            String p2name = chooseName("Joueur 2");
+            Joueur p1 = creerJoueur(chooseName("Joueur 1"));
+            Joueur p2 = creerJoueur(chooseName("Joueur 2"));
             clearScreen();
             cursor(0,0);
             /* Écran de confirmation */
-            println("P1 : " + p1name);
-            println("P2 : " + p2name);
+            println("P1 : " + p1.nom);
+            println("P2 : " + p2.nom);
             println("Appuyer sur entrée pour démarrer la partie.");
             String attente = readString();
-            game(tourActuel, p1coins, p2coins, p1name, p2name, maxTour, board);
+            game(tourActuel, p1, p2, maxTour, board);
         } else if(equals(entreeUtilisateur,"2")){
             println("Quitter");
         }
     }
 
-    void game(int tourActuel, int p1coins, int p2coins, String p1name, String p2name, int maxTour, String[] board){
-        /* Initialisation de variables propres a la partie */
-        int positionp1 = 0;
-        int positionp2 = 0;
-        int p1stars = 0;
-        int p2stars = 0;
+    void game(int tourActuel, Joueur p1, Joueur p2, int maxTour, String[] board){
         clearScreen();
         cursor(0,0);
         while(tourActuel <= maxTour){
             /* Affichage en deux temps, le plateau puis les infos de la partie */
             printart(board);
-            printstatus(tourActuel, p1name, p2name, p1coins, p2coins, maxTour, positionp1, positionp2);
+            printstatus(tourActuel, p1, p2, maxTour);
             println("1. Lancer le dé");
             println("2. Jouer un objet");
             String entreeUtilisateur = choix();
@@ -93,9 +86,9 @@ class Game extends Program{
                 int lancer = nombreAlea(1, 6);
                 /* On déduit qui joue */
                 if(tourActuel % 2 == 0){
-                    positionp2 = bouger(positionp2, lancer);
+                    p2.position = bouger(p2.position, lancer);
                 } else {
-                    positionp1 = bouger(positionp1, lancer);
+                    p1.position = bouger(p1.position, lancer);
                 }
             } else if(equals(entreeUtilisateur, "2")){
                 /* Afficher les objets du joueur actuel */
@@ -110,7 +103,7 @@ class Game extends Program{
         clearScreen();
         cursor(0,0);
         /* Affichage du gagnant */
-        String gagnant = determinerGagnant(p1name, p2name, p1coins, p2coins, p1stars, p2stars);
+        String gagnant = determinerGagnant(p1, p2);
         println("Merci d'avoir joué!");
         println("Gagnant de la partie : " + gagnant);
         String attente = readString();
@@ -138,19 +131,17 @@ class Game extends Program{
     }
 
     /* Affiche l'etat de la parti en cours : le tour actuel, qui joue, les pieces, la position des joueurs */
-    void printstatus(int tourActuel, String p1name, String p2name, int p1coins, int p2coins, int maxTour, int positionp1, int positionp2){
+    void printstatus(int tourActuel, Joueur p1, Joueur p2, int maxTour){
         println("\nTour actuel : " + tourActuel + "/" + maxTour);
         if(tourActuel % 2 == 0){
-            println("A " + p2name + " de jouer!");
+            println("A " + p2.nom + " de jouer!");
         } else {
-            println("A " + p1name + " de jouer!");
+            println("A " + p1.nom + " de jouer!");
         }
         println("\n - Pièces - ");
-        println(p1name + " : " + p1coins);
-        println(p2name + " : " + p2coins);
+        println(p1.nom + " : " + p1.pieces + " || " + p2.nom + " : " + p2.pieces);
         println("\n - Position - ");
-        println(p1name + " : " + positionp1);
-        println(p2name + " : " + positionp2);
+        println(p1.nom + " : " + p1.position + " || " + p2.nom + " : " + p2.position);
     }
 
     /* Controle de saisie basique pour de l'entrée de nom (peut être utilisé pour d'autres contextes) */
@@ -192,23 +183,70 @@ class Game extends Program{
     }
 
     /* Determine qui a le plus d'étoiles, ou qui a le plus de pieces si les deux joueurs ont le même nombre d'étoiles */
-    String determinerGagnant(String p1name, String p2name, int p1coins, int p2coins, int p1stars, int p2stars){
-        if(p1stars == p2stars){
-            if(p1coins > p2coins){
-                return p1name;
+    String determinerGagnant(Joueur p1, Joueur p2){
+        if(p1.etoiles == p2.etoiles){
+            if(p1.pieces > p2.pieces){
+                return p1.nom;
             } else {
-                return p2name;
+                return p2.nom;
             }
-        } else if(p1stars > p2stars){
-            return p1name;
+        } else if(p1.etoiles > p2.etoiles){
+            return p1.nom;
         } else {
-            return p2name;
+            return p2.nom;
         }
     }
 
     void testDeterminerGagnant(){
-        assertEquals("J1", determinerGagnant("J1", "J2", 90, 20, 2, 1));
-        assertEquals("J1", determinerGagnant("J1", "J2", 90, 20, 1, 1));
-        assertEquals("J2", determinerGagnant("J1", "J2", 60, 80, 1, 1));
+        Joueur j1 = creerJoueur("J1");
+        Joueur j2 = creerJoueur("J2");
+        j1.pieces = 90;
+        j2.pieces = 20;
+        j1.etoiles = 2;
+        j2.etoiles = 1;
+        assertEquals("J1", determinerGagnant(j1, j2));
+        j2.pieces = 20;
+        j1.etoiles = 1;
+        assertEquals("J1", determinerGagnant(j1, j2));
+        j1.pieces = 60;
+        j2.pieces = 80;
+        assertEquals("J2", determinerGagnant(j1, j2));
+    }
+
+    Joueur creerJoueur(String nom){
+        Joueur j = new Joueur();
+        j.nom = nom;
+        j.pieces = 0;
+        j.etoiles = 0;
+        j.position = 0;
+        j.inventaire = creerInventaire();
+        return j;
+    }
+
+    void testCreerJoueur(){
+        // giga flemme
+    }
+
+    Inventaire creerInventaire(){
+        Inventaire i = new Inventaire();
+        i.occupe = new boolean[]{false,false,false};
+        i.type = new int[]{-1,-1,-1};
+        return i;
+    }
+
+    void printInventory(Inventaire i){
+        for(int idx = 0; idx < length(i.type); idx++){
+            println("Emplacement " + idx + " : " + nomObjet(i.type[idx]));
+        }
+    }
+
+    String nomObjet(int type){
+        if(type == 1){
+            return "Objet 1";
+        } else if(type == 2){
+            return "Objet 2";
+        } else {
+            return "Objet invalide";
+        }
     }
 }

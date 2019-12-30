@@ -1,7 +1,7 @@
 # TODO
 
-- Faire un système d'inventaire (type? liste?)
-- Lire cet inventaire
+- Faire un système d'inventaire (type? liste?) **DONE**
+- Lire cet inventaire **DONE**
 - Faire le code pour la "boutique"
 - Mettre en place des effets d'objets
     - Lancer * 2
