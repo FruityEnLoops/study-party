@@ -69,13 +69,13 @@ class Game extends Program{
             println("P2 : " + p2.nom);
             println("Appuyer sur entrée pour démarrer la partie.");
             String attente = readString();
-            game(tourActuel, p1, p2, maxTour, board);
+            game(tourActuel, p1, p2, maxTour, board, questions);
         } else if(equals(entreeUtilisateur,"2")){
             println("Quitter");
         }
     }
 
-    void game(int tourActuel, Joueur p1, Joueur p2, int maxTour, String[] board){
+    void game(int tourActuel, Joueur p1, Joueur p2, int maxTour, String[] board, String[][] questions){
         clearScreen();
         cursor(0,0);
         while(tourActuel <= maxTour){
@@ -93,7 +93,7 @@ class Game extends Program{
                 /* Choisir l'objet */
                 lancerEtMouvement(tourActuel, p1, p2);
             }
-            joueurActuel(tourActuel, p1, p2).pieces = joueurActuel(tourActuel, p1, p2).pieces + actionCase(joueurActuel(tourActuel, p1, p2).positon);
+            joueurActuel(tourActuel, p1, p2).pieces = joueurActuel(tourActuel, p1, p2).pieces + actionCase(joueurActuel(tourActuel, p1, p2).positon, questions, joueurActuel(tourActuel, p1, p2));
             tourActuel++;
             clearScreen();
             cursor(0,0);
@@ -273,7 +273,7 @@ class Game extends Program{
         return tab;
     }
 
-    int actionCase(int position){
+    int actionCase(int position, String[][] questions, Joueur j){
         if(position == 4 || position == 9){
             println("Bonus! Ajout de 3 pièces.");
             return 3;
@@ -281,7 +281,34 @@ class Game extends Program{
             println("Malus! Perte de 3 pièces...");
             return -3;
         } else if(position == 1 || position == 2 || position == 3 || position == 5 || position == 7 || position == 8 || position == 10){
-            return question();
+            return question(questions);
+        } else if(position == 12){
+            // return boutique(j);
+        } else {
+            return 0;
+        }
+    }
+
+    int question(String[][] questions){
+        int qnumber = alea(1, 40);
+        boolean fin = false;
+        while(!fin){
+            clearScreen();
+            println("Question :\n" + questions[qnumber][2]);
+            println("1. " + questions[qnumber][3]);
+            println("2. " + questions[qnumber][4]);
+            println("3. " + questions[qnumber][5]);
+            String reponse = readString();
+            if(equals(reponse, "1") || equals(reponse, "2") || equals(reponse, "3")){
+                fin = true;
+            }
+        }
+        if(equals(reponse, questions[qnumber][6])){
+            println("Bonne réponse! +5 pièces");
+            return 5;
+        } else {
+            println("Mauvaise réponse! 0 pièces");
+            return 0;
         }
     }
 }
