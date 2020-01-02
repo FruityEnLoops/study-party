@@ -290,15 +290,16 @@ class Game extends Program{
     }
 
     int question(String[][] questions){
-        int qnumber = alea(1, 40);
+        int qnumber = nombreAlea(1, 40);
         boolean fin = false;
+        String reponse = "";
         while(!fin){
             clearScreen();
             println("Question :\n" + questions[qnumber][2]);
             println("1. " + questions[qnumber][3]);
             println("2. " + questions[qnumber][4]);
             println("3. " + questions[qnumber][5]);
-            String reponse = readString();
+            reponse = readString();
             if(equals(reponse, "1") || equals(reponse, "2") || equals(reponse, "3")){
                 fin = true;
             }
