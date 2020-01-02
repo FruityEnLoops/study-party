@@ -275,10 +275,10 @@ class Game extends Program{
 
     int actionCase(int position){
         if(position == 4 || position == 9){
-            println("Bonus! Ajout de 3 pièces.")
+            println("Bonus! Ajout de 3 pièces.");
             return 3;
         } else if(position == 6 || position == 11){
-            println("Malus! Perte de 3 pièces...")
+            println("Malus! Perte de 3 pièces...");
             return -3;
         } else if(position == 1 || position == 2 || position == 3 || position == 5 || position == 7 || position == 8 || position == 10){
             return question();
