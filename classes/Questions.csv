@@ -1,0 +1,41 @@
+Index,Matiere,Question,Reponse1,Reponse2,Reponse3,ReponseCorrecte
+1,Maths,25 + 13 = _,28,38,48,2
+2,Maths,4 + 4 = _,6,9,8,3
+3,Maths,10 - 3 = _,8,7,6,2
+4,Maths,10 + _ = 12,2,3,4,1
+5,Maths,_ + 3 = 5,2,3,5,1
+6,Maths,7 _ 9,<,>,=,1
+7,Maths,1 _ 3 _ 5,>,<,=,2
+8,Maths,5 _ 5,>,=,<,2
+9,Maths,6 _ 4,-,+,>,3
+10,Maths,5 - 3 = _,3,2,1,2
+11,Anglais,Que veut dire tree ?,Arbre,3,voiture,1
+12,Anglais,Que veut dire blue ?,Bleu,Vert,Rouge,1
+13,Anglais,Que veut dire green ?,Bleu,Vert,Rouge,2
+14,Anglais,Que veut dire red ?,Bleu,Vert,Rouge,3
+15,Anglais,Que veut dire banana ?,Orange,Banane,Fraise,2
+16,Anglais,Que veut dire sad ?,Fatigué,Heureux,Triste,3
+17,Histoire,Qui était le roi Soleil ?,Louis XIV,Napoléon,François 1er,1
+18,Histoire,Quelle est la date de la révolution française ?,701,700,1789,3
+19,Géographie,Quelle est la capitale de la France ?,Paris,Lille,Londres,1
+20,Maths,250 - 65 + 32 = _,232,127,233,2
+21,Maths,599 - 200 = _,399,299,499,1
+22,Maths,333 + 77 = _,400,401,410,3
+23,Maths,25 x 30 = _,750,600,675,1
+24,Maths,12 x 13 = _,155,156,157,2
+25,Maths,56312 x 0 + 1 = _,1,56312,56313,1
+26,Maths,2 x 2 x 2 x 2 = _,8,16,32,2
+27,Maths,12 x 3 + 3 = _,36,37,39,3
+28,Maths,56 _ 25 _ 12,> et >,< et >,- et =,1
+29,Maths,_ x 9 = 81,8,9,10,2
+30,Maths,25 x _ = 100,5,4,3,2
+31,Science,Quels sont les 3 différents états de l'eau ?,Solide Liquide et Gazeux,Chaud Froid et Tiède,il y en a 4,1
+32,Science,Quel est le satellite naturel de la Terre ?,Mars,Le Soleil,La Lune,3
+33,Science,A quelle catégorie appartient l'espèce humaine ?,Les invertébrés,Les mammifères,Les Dinosaures,2
+34,Géographie,Quelle est la capitale du Royaume-Uni ?,Paris,Douvres,Londres,3
+35,Géographie,Quelle est la capitale de la Belgique,Tournai,Londres,Bruxelles,3
+36,Histoire,Quelle était le nom de la France ?,La Gaule,l'Espagne,la Belgique,1
+37,Anglais,Comment dit-on ordinateur en anglais ?,Car,Computer,Tree,2
+38,Anglais,Comment dit-on lit en anglais ?,Bed,Desk,Tree,1
+39,Anglais,Comment dit-on chaise en anglais ?,Tree,Table,Chair,3
+40,Histoire,Qui a inventé l'école ?,Clovis,Napoléon,Charlemagne,3
