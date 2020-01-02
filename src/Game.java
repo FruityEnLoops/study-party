@@ -284,6 +284,7 @@ class Game extends Program{
         } else if(position == 1 || position == 2 || position == 3 || position == 5 || position == 7 || position == 8 || position == 10){
             return question(questions);
         } else if(position == 12){
+            return 0; /* temporaire */
             // return boutique(j);
         } else {
             return 0;
