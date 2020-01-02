@@ -82,19 +82,12 @@ class Game extends Program{
             println("2. Jouer un objet");
             String entreeUtilisateur = choix();
             if(equals(entreeUtilisateur, "1")){
-                /* Mouvement sur le plateau */    
-                int lancer = nombreAlea(1, 6);
-                /* On déduit qui joue */
-                if(tourActuel % 2 == 0){
-                    p2.position = bouger(p2.position, lancer);
-                } else {
-                    p1.position = bouger(p1.position, lancer);
-                }
+                lancerEtMouvement(tourActuel, p1, p2);
             } else if(equals(entreeUtilisateur, "2")){
-                /* Afficher les objets du joueur actuel */
+                printInventory(joueurActuel(tourActuel, p1, p2).inventaire);
                 println("Menu pour jouer un objet a faire");
                 /* Choisir l'objet */
-                /* Lancer le dé, bouger, etc */
+                lancerEtMouvement(tourActuel, p1, p2);
             }
             tourActuel++;
             clearScreen();
@@ -245,8 +238,23 @@ class Game extends Program{
             return "Objet 1";
         } else if(type == 2){
             return "Objet 2";
+        } else if(type == -1){
+            return "Pas d'objet";
         } else {
             return "Objet invalide";
+        }
+    }
+    
+    void lancerEtMouvement(int tourActuel, Joueur p1, Joueur p2){
+        int lancer = nombreAlea(1, 6);
+        bouger(joueurActuel(tourActuel, p1, p2).position, lancer);
+    }
+
+    Joueur joueurActuel(int tourActuel, Joueur p1, Joueur p2){
+        if(tourActuel % 2 == 0){
+            return p2;
+        } else {
+            return p1;
         }
     }
 }
