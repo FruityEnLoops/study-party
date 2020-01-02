@@ -1,8 +1,5 @@
+import extensions.CSVFile;
 class Game extends Program{
-
-    /* Résumé des fonctions
-    printart() : Affiche toute les lignes d'une liste (pour les ASCII Arts)
-    chooseName(String user) : Permet la saisie du nom du joueur "user" */
 
     void algorithm(){
         
@@ -37,6 +34,13 @@ class Game extends Program{
         board[8] = "        \\                          /";
         board[9] = "          [Bonus] - [Exo] -  [Exo]";
         board[10] ="             9        8        7";
+
+        /* Initialisation des questions */
+
+        CSVFile questionscsv = loadCSV("Questions.csv");
+        String[][] questions = toTab(questionscsv);
+
+
         /* Menu */
         
         clearScreen();
@@ -89,6 +93,7 @@ class Game extends Program{
                 /* Choisir l'objet */
                 lancerEtMouvement(tourActuel, p1, p2);
             }
+            joueurActuel(tourActuel, p1, p2).pieces = joueurActuel(tourActuel, p1, p2).pieces + actionCase(joueurActuel(tourActuel, p1, p2).positon);
             tourActuel++;
             clearScreen();
             cursor(0,0);
@@ -255,6 +260,28 @@ class Game extends Program{
             return p2;
         } else {
             return p1;
+        }
+    }
+
+    String[][] toTab(CSVFile csv){
+        String[][] tab = new String[rowCount(csv)][columnCount(csv)];
+        for(int i = 0; i < rowCount(csv); i++){
+            for(int j = 0; j < columnCount(csv); j++){
+                tab[i][j] = getCell(csv, i, j);
+            }
+        }
+        return tab;
+    }
+
+    int actionCase(int position){
+        if(position == 4 || position == 9){
+            println("Bonus! Ajout de 3 pièces.")
+            return 3;
+        } else if(position == 6 || position == 11){
+            println("Malus! Perte de 3 pièces...")
+            return -3;
+        } else if(position == 1 || position == 2 || position == 3 || position == 5 || position == 7 || position == 8 || position == 10){
+            return question();
         }
     }
 }
