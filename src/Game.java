@@ -93,7 +93,7 @@ class Game extends Program{
                 /* Choisir l'objet */
                 lancerEtMouvement(tourActuel, p1, p2);
             }
-            joueurActuel(tourActuel, p1, p2).pieces = joueurActuel(tourActuel, p1, p2).pieces + actionCase(joueurActuel(tourActuel, p1, p2).positon, questions, joueurActuel(tourActuel, p1, p2));
+            joueurActuel(tourActuel, p1, p2).pieces = joueurActuel(tourActuel, p1, p2).pieces + actionCase(questions, joueurActuel(tourActuel, p1, p2));
             tourActuel++;
             clearScreen();
             cursor(0,0);
@@ -273,7 +273,8 @@ class Game extends Program{
         return tab;
     }
 
-    int actionCase(int position, String[][] questions, Joueur j){
+    int actionCase(String[][] questions, Joueur j){
+        int position = j.position;
         if(position == 4 || position == 9){
             println("Bonus! Ajout de 3 pièces.");
             return 3;
