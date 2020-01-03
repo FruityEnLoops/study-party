@@ -221,7 +221,10 @@ class Game extends Program{
     }
 
     void testCreerJoueur(){
-        // giga flemme
+        j = creerJoueur("Test");
+        assertEquals(0, j.pieces);
+        assertEquals(0, j.etoiles);
+        assertEquals(0, j.position);
     }
 
     Inventaire creerInventaire(){
@@ -229,6 +232,16 @@ class Game extends Program{
         i.occupe = new boolean[]{false,false,false};
         i.type = new int[]{-1,-1,-1};
         return i;
+    }
+
+    void testCreerInventaire(){
+        i = creerInventaire();
+        for(int j = 0; j < 3; j++){
+            assertFalse(i.occupe[j]);
+        }
+        for(int j = 0; j < 3; j++){
+            assertEquals(-1, i.type[j]);
+        }
     }
 
     void printInventory(Inventaire i){
