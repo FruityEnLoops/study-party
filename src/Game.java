@@ -40,7 +40,6 @@ class Game extends Program{
         CSVFile questionscsv = loadCSV("Questions.csv");
         String[][] questions = toTab(questionscsv);
 
-
         /* Menu */
         
         clearScreen();
@@ -252,7 +251,7 @@ class Game extends Program{
     
     void lancerEtMouvement(int tourActuel, Joueur p1, Joueur p2){
         int lancer = nombreAlea(1, 6);
-        bouger(joueurActuel(tourActuel, p1, p2).position, lancer);
+        joueurActuel(tourActuel, p1, p2).position = bouger(joueurActuel(tourActuel, p1, p2).position, lancer);
     }
 
     Joueur joueurActuel(int tourActuel, Joueur p1, Joueur p2){
