@@ -1,0 +1,20 @@
+-fonction deEnOr (lancer*2) et pickpocket (vole 10 pièces à l'adversaire) parce que le passe ton tour je le trouvais violent
+	pour le deEnOr j'ai modifier le code de lancerEtMouvement ou j'ai ajouté un boolean doubleLancer qui s'active quand on utilise l'objet
+-choisis des noms pour les objets
+-changer Bonus/Malus en +3 pièces/-3 Pièces pour une compréhension plus facile
+-dans le while du game() j'ai remplacé toute les occurrences de "joueurActuel(tourActuel,p1,p2)" par une variable Joueur joueur qui contient cette valeur, j'ai mis l'initialisation de cette variable dans le while pour la réinitialisé à chaque tour
+-j'ai ajouté deux fonction (utiliserObjet() qui utilise l'objet selon le type d'objet qui lui est envoyé; et choixDansInventaire() qui retourne le type de l'objet présent dans la case d'inventaire choisis par le joueur)
+mais je les ai pas encore faites
+
+
+
+
+Amélioration (d'après le prof) :
+-le printart et le board à retirer du void algo et à mettre en constante
+
+Et faire un tableau pour le board, au cas ou on veuille rajouter ou enlever une case, pour nous éviter de changer toute les valeurs en dure dans le code pour désigner les cases 
+(A voir car beaucoup de travail mais il faut qu'on sache que c'est une piste d'amélioration possible)
+
+
+-faire un type question pour mieux structurer
+
