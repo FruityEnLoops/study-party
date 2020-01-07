@@ -1,14 +1,14 @@
 import extensions.CSVFile;
 class Game extends Program{
 
+    final String ROUGE = "\033[31m";
+    final String VERT = "\033[32m";
+    final String BLEU = "\033[34m";
+    final String RESETCOLOR = "\033[0m";
+    final String BOLD = "\033[1m";
+    final String FBLEU = "\033[44m";
+
     void algorithm(){
-        
-        final String ROUGE = "\033[31m";
-        final String VERT = "\033[32m";
-        final String BLEU = "\033[34m";
-        final String RESETCOLOR = "\033[0m";
-        final String BOLD = "\033[1m";
-        final String FBLEU = "\033[44m";
         
         /* Initialisation des ASCII Arts dans des listes */
 
@@ -150,15 +150,15 @@ class Game extends Program{
 
     /* Affiche l'etat de la parti en cours : le tour actuel, qui joue, les pieces, la position des joueurs */
     void printstatus(int tourActuel, Joueur p1, Joueur p2, int maxTour){
-        println("\nTour actuel : " + tourActuel + "/" + maxTour);
+        println(FBLEU + "\nTour actuel : " + tourActuel + "/" + maxTour + RESETCOLOR);
         if(tourActuel % 2 == 0){
             println("A " + p2.nom + " de jouer!");
         } else {
             println("A " + p1.nom + " de jouer!");
         }
-        println("\n - Pièces - ");
+        println(FBLEU + "\n - Pièces - " + RESETCOLOR);
         println(p1.nom + " : " + p1.pieces + " || " + p2.nom + " : " + p2.pieces);
-        println("\n - Position - ");
+        println(FBLEU + "\n - Position - " + RESETCOLOR);
         println(p1.nom + " : " + p1.position + " || " + p2.nom + " : " + p2.position);
     }
 
@@ -326,12 +326,12 @@ class Game extends Program{
         int position = j.position;
         if(position == 4 || position == 9){
             clearScreen();
-            println("Bonus! Ajout de 3 pièces.");
+            println(VERT + "Bonus!" + RESETCOLOR + " Ajout de 3 pièces.");
             delay(1250);
             return 3;
         } else if(position == 6 || position == 11){
             clearScreen();
-            println("Malus! Perte de 3 pièces...");
+            println(ROUGE + "Malus!" + RESETCOLOR + " Perte de 3 pièces...");
             delay(1250);
             return -3;
         } else if(position == 1 || position == 2 || position == 3 || position == 5 || position == 7 || position == 8 || position == 10){
@@ -373,12 +373,12 @@ class Game extends Program{
         }
         if(equals(reponse, questions[qnumber][6])){
             clearScreen();
-            println("Bonne réponse! +5 pièces");
+            println(VERT + "Bonne réponse!" + RESETCOLOR + " +5 pièces");
             delay(1250);
             return 5;
         } else {
             clearScreen();
-            println("Mauvaise réponse! 0 pièces");
+            println(ROUGE + "Mauvaise réponse!" + RESETCOLOR + " 0 pièces");
             delay(1250);
             return 0;
         }
