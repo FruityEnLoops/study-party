@@ -3,6 +3,13 @@ class Game extends Program{
 
     void algorithm(){
         
+        final String ROUGE = "\033[31m";
+        final String VERT = "\033[32m";
+        final String BLEU = "\033[34m";
+        final String RESETCOLOR = "\033[0m";
+        final String BOLD = "\033[1m";
+        final String FBLEU = "\033[44m";
+        
         /* Initialisation des ASCII Arts dans des listes */
 
         String[] menuart = new String[15];
@@ -46,8 +53,9 @@ class Game extends Program{
         cursor(0,0);
         boolean fin = false;
         printart(menuart);
-        println("1. Jouer");
-        println("2. Quitter");
+        println("");
+        println(FBLEU + "1. Jouer" + RESETCOLOR);
+        println(FBLEU + "2. Quitter" + RESETCOLOR);
         String entreeUtilisateur = choix();
         clearScreen();
         cursor(0,0);
@@ -70,7 +78,7 @@ class Game extends Program{
             String attente = readString();
             game(tourActuel, p1, p2, maxTour, board, questions);
         } else if(equals(entreeUtilisateur,"2")){
-            println("Quitter");
+            clearScreen();
         }
     }
 
@@ -259,7 +267,7 @@ class Game extends Program{
 
     void printInventory(Inventaire i){
         for(int idx = 0; idx < length(i.type); idx++){
-            println("   -" + idx + " : " + nomObjet(i.type[idx]));
+            println("  - " + idx + 1 + " : " + nomObjet(i.type[idx]));
         }
     }
 
@@ -394,7 +402,7 @@ class Game extends Program{
             String item = readString();
             if(equals(item, "1")){
                 if(joueur.inventaire.occupe[0]){
-                    int objetAjouer = joueur.inventaire.type[0];
+                    return joueur.inventaire.type[0];
                 } else {
                     println("Pas d'objet dans cet emplacement");
                 }
