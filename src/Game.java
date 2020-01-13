@@ -8,6 +8,8 @@ class Game extends Program{
     final String BOLD = "\033[1m";
     final String FBLEU = "\033[44m";
 
+    boolean doubleLancer = false;
+
     void algorithm(){
         
         /* Initialisation des ASCII Arts dans des listes */
@@ -87,6 +89,7 @@ class Game extends Program{
         cursor(0,0);
         while(tourActuel <= maxTour){
 	        Joueur joueur = joueurActuel(tourActuel, p1, p2);
+            Joueur autreJoueur = autreJoueur(joueur, p1, p2);
             /* Affichage en deux temps, le plateau puis les infos de la partie */
             printart(board);
             printstatus(tourActuel, p1, p2, maxTour);
@@ -96,16 +99,11 @@ class Game extends Program{
             if(equals(entreeUtilisateur, "1")){
                 lancerEtMouvement(tourActuel, p1, p2, false);
             } else if(equals(entreeUtilisateur, "2")){
-                boolean doubleLancer = false;
+                doubleLancer = false
                 if(joueur.inventaire.occupe[0] || joueur.inventaire.occupe[0] || joueur.inventaire.occupe[0]){
                     println("Choisis l'objet à utiliser :");
                     printInventory(joueur.inventaire);
-                    int objetAjouer = choixDansInventaire(joueur);
-                    if(objetAjouer == 1){
-                        doubleLancer = true;
-                    } else if(objetAjouer == 2){
-                        pickpocket(tourActuel, p1, p2);
-                    }
+                    choixDansInventaire(joueur, autreJoueur);
                 } else {
                     clearScreen();
                     println("Erreur : Aucun objet a jouer");
@@ -283,7 +281,7 @@ class Game extends Program{
         }
     }
     
-    void lancerEtMouvement(int tourActuel, Joueur p1, Joueur p2, boolean doubleLancer){
+    void lancerEtMouvement(int tourActuel, Joueur p1, Joueur p2){
         int lancer = nombreAlea(1, 6);
 	    if(doubleLancer){
 	        lancer = lancer*2;
@@ -384,10 +382,8 @@ class Game extends Program{
         }
     }
     
-    void pickpocket(int tourActuel, Joueur p1, Joueur p2) {
-        //Cet objet permet à son utilisateur de voler 10 pièces à son adversaire
-        Joueur joueur = joueurActuel(tourActuel, p1, p2);
-        Joueur autreJoueur = autreJoueur(joueur, p1, p2);
+    void pickpocket(int tourActuel, Joueur joueur, Joueur autreJoueur) {
+        //Cet objet permet à son utilisateur de voler 10 pièces à son adversaire   
         if(autreJoueur.pieces<10) { 
             joueur.pieces += autreJoueur.pieces;
             autreJoueur.pieces = 0;
@@ -397,29 +393,45 @@ class Game extends Program{
         }
     }
 
-    int choixDansInventaire(Joueur joueur) {
-	    while(true){
+    void choixDansInventaire(Joueur joueur, Joueur autreJoueur) {
+        while(true){
             String item = readString();
             if(equals(item, "1")){
                 if(joueur.inventaire.occupe[0]){
-                    return joueur.inventaire.type[0];
+                    utiliserObjet(joueur,joueur.inventaire.type[0],autreJoueur);
+                    joueur.inventaire.occupe[0] = false;
+                    joueur.inventaire.type[0] = -1;
+
                 } else {
                     println("Pas d'objet dans cet emplacement");
                 }
             } else if(equals(item, "2")){
                 if(joueur.inventaire.occupe[1]){
-                    return joueur.inventaire.type[1];
+                    utiliserObjet(joueur,joueur.inventaire.type[1],autreJoueur);
+                    joueur.inventaire.occupe[1] = false;
+                    joueur.inventaire.type[1] = -1;
                 } else {
                     println("Pas d'objet dans cet emplacement");
                 }
             } else if(equals(item, "3")){
                 if(joueur.inventaire.occupe[2]){
-                    return joueur.inventaire.type[2];
+                    utiliserObjet(joueur,joueur.inventaire.type[2],autreJoueur);
+                    joueur.inventaire.occupe[2] = false;
+                    joueur.inventaire.type[2] = -1;
                 } else {
                     println("Pas d'objet dans cet emplacement");
                 }
             }
         }
+    }
+
+    void utiliserObjet(Joueur joueur, int type, Joueur autreJoueur) {
+        if(type == 1) {
+            doubleLancer = true;
+        }
+        else if(type == 2){
+            pickpocket(tourActuel, joueur, autreJoueur);
+        }        
     }
 
     int boutique(Joueur j){
