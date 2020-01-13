@@ -46,41 +46,43 @@ class Game extends Program{
 
         /* Initialisation des questions */
 
-        CSVFile questionscsv = loadCSV("Questions.csv");
-        String[][] questions = toTab(questionscsv);
+        String[][] questions = toTab(loadCSV("Questions.csv"));
 
         /* Menu */
-        
-        clearScreen();
-        cursor(0,0);
-        boolean fin = false;
-        printart(menuart);
-        println("");
-        println(FBLEU + "1. Jouer" + RESETCOLOR);
-        println(FBLEU + "2. Quitter" + RESETCOLOR);
-        String entreeUtilisateur = choix();
-        clearScreen();
-        cursor(0,0);
-        if(equals(entreeUtilisateur,"1")){
-            /* Initialisation des variables de la partie */
-            int tourActuel = 1;
+        boolean quitter = false;
+        while(!quitter){
             clearScreen();
             cursor(0,0);
-            /* Définition des options de la partie par l'utilisateur */
-            println("Partie en combien de tours?");
-            int maxTour = readInt(); /* Il faudra remplacer ce readInt a terme par un readString */
-            Joueur p1 = creerJoueur(chooseName("Joueur 1"));
-            Joueur p2 = creerJoueur(chooseName("Joueur 2"));
+            boolean fin = false;
+            printart(menuart);
+            println("");
+            println(FBLEU + "1. Jouer" + RESETCOLOR);
+            println(FBLEU + "2. Quitter" + RESETCOLOR);
+            String entreeUtilisateur = choix();
             clearScreen();
             cursor(0,0);
-            /* Écran de confirmation */
-            println("P1 : " + p1.nom);
-            println("P2 : " + p2.nom);
-            println("Appuyer sur entrée pour démarrer la partie.");
-            String attente = readString();
-            game(tourActuel, p1, p2, maxTour, board, questions);
-        } else if(equals(entreeUtilisateur,"2")){
-            clearScreen();
+            if(equals(entreeUtilisateur,"1")){
+                /* Initialisation des variables de la partie */
+                int tourActuel = 1;
+                clearScreen();
+                cursor(0,0);
+                /* Définition des options de la partie par l'utilisateur */
+                println("Partie en combien de tours?");
+                int maxTour = readInt(); /* Il faudra remplacer ce readInt a terme par un readString */
+                Joueur p1 = creerJoueur(chooseName("Joueur 1"));
+                Joueur p2 = creerJoueur(chooseName("Joueur 2"));
+                clearScreen();
+                cursor(0,0);
+                /* Écran de confirmation */
+                println("P1 : " + p1.nom);
+                println("P2 : " + p2.nom);
+                println("Appuyer sur entrée pour démarrer la partie.");
+                String attente = readString();
+                game(tourActuel, p1, p2, maxTour, board, questions);
+            } else if(equals(entreeUtilisateur,"2")){
+                clearScreen();
+                quitter = true;
+            }
         }
     }
 
