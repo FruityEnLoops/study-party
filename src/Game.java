@@ -428,6 +428,7 @@ class Game extends Program{
     void utiliserObjet(Joueur joueur, int type, Joueur autreJoueur) {
         if(type == 1) {
             doubleLancer = true;
+        
         }
         else if(type == 2){
             pickpocket(tourActuel, joueur, autreJoueur);
