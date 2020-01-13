@@ -101,11 +101,11 @@ class Game extends Program{
             if(equals(entreeUtilisateur, "1")){
                 lancerEtMouvement(tourActuel, p1, p2, false);
             } else if(equals(entreeUtilisateur, "2")){
-                doubleLancer = false
+                doubleLancer = false;
                 if(joueur.inventaire.occupe[0] || joueur.inventaire.occupe[0] || joueur.inventaire.occupe[0]){
                     println("Choisis l'objet à utiliser :");
                     printInventory(joueur.inventaire);
-                    choixDansInventaire(joueur, autreJoueur);
+                    choixDansInventaire(joueur, autreJoueur, tourActuel);
                 } else {
                     clearScreen();
                     println("Erreur : Aucun objet a jouer");
@@ -283,7 +283,7 @@ class Game extends Program{
         }
     }
     
-    void lancerEtMouvement(int tourActuel, Joueur p1, Joueur p2){
+    void lancerEtMouvement(int tourActuel, Joueur p1, Joueur p2, boolean doubleLancer){
         int lancer = nombreAlea(1, 6);
 	    if(doubleLancer){
 	        lancer = lancer*2;
@@ -395,21 +395,20 @@ class Game extends Program{
         }
     }
 
-    void choixDansInventaire(Joueur joueur, Joueur autreJoueur) {
+    void choixDansInventaire(Joueur joueur, Joueur autreJoueur, int tourActuel) {
         while(true){
             String item = readString();
             if(equals(item, "1")){
                 if(joueur.inventaire.occupe[0]){
-                    utiliserObjet(joueur,joueur.inventaire.type[0],autreJoueur);
+                    utiliserObjet(joueur, joueur.inventaire.type[0], autreJoueur, tourActuel);
                     joueur.inventaire.occupe[0] = false;
                     joueur.inventaire.type[0] = -1;
-
                 } else {
                     println("Pas d'objet dans cet emplacement");
                 }
             } else if(equals(item, "2")){
                 if(joueur.inventaire.occupe[1]){
-                    utiliserObjet(joueur,joueur.inventaire.type[1],autreJoueur);
+                    utiliserObjet(joueur, joueur.inventaire.type[1], autreJoueur, tourActuel);
                     joueur.inventaire.occupe[1] = false;
                     joueur.inventaire.type[1] = -1;
                 } else {
@@ -417,7 +416,7 @@ class Game extends Program{
                 }
             } else if(equals(item, "3")){
                 if(joueur.inventaire.occupe[2]){
-                    utiliserObjet(joueur,joueur.inventaire.type[2],autreJoueur);
+                    utiliserObjet(joueur, joueur.inventaire.type[2], autreJoueur, tourActuel);
                     joueur.inventaire.occupe[2] = false;
                     joueur.inventaire.type[2] = -1;
                 } else {
@@ -427,7 +426,7 @@ class Game extends Program{
         }
     }
 
-    void utiliserObjet(Joueur joueur, int type, Joueur autreJoueur) {
+    void utiliserObjet(Joueur joueur, int type, Joueur autreJoueur, int tourActuel) {
         if(type == 1) {
             doubleLancer = true;
         
