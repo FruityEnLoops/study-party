@@ -4,10 +4,10 @@ Index,Matiere,Question,Reponse1,Reponse2,Reponse3,ReponseCorrecte
 3,Maths,10 - 3 = _,8,7,6,2
 4,Maths,10 + _ = 12,2,3,4,1
 5,Maths,_ + 3 = 5,2,3,5,1
-6,Maths,7 _ 9,<,>,=,1
-7,Maths,1 _ 3 _ 5,>,<,=,2
-8,Maths,5 _ 5,>,=,<,2
-9,Maths,6 _ 4,-,+,>,3
+6,Maths,7 est...,plus petit que 9?,plus grand que 9?,égal a 9?,1
+7,Maths,1 est...,plus grand que 3?,plus petit que 3?,égal a 3,2
+8,Maths,5 est...,plus grand que 5?,égal a 5?,plus petit que 5?,2
+9,Maths,6 est...,plus petit que 4?,égal a 4?,plus grand que 4?,3
 10,Maths,5 - 3 = _,3,2,1,2
 11,Anglais,Que veut dire tree ?,Arbre,3,voiture,1
 12,Anglais,Que veut dire blue ?,Bleu,Vert,Rouge,1

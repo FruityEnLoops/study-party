@@ -57,7 +57,8 @@ class Game extends Program{
             printart(menuart);
             println("");
             println(FBLEU + "1. Jouer" + RESETCOLOR);
-            println(FBLEU + "2. Quitter" + RESETCOLOR);
+            println(FBLEU + "2. Aide" + RESETCOLOR);
+            println(FBLEU + "3. Quitter" + RESETCOLOR);
             String entreeUtilisateur = choix();
             clearScreen();
             cursor(0,0);
@@ -71,6 +72,7 @@ class Game extends Program{
                 int maxTour = readInt(); /* Il faudra remplacer ce readInt a terme par un readString */
                 Joueur p1 = creerJoueur(chooseName("Joueur 1"));
                 Joueur p2 = creerJoueur(chooseName("Joueur 2"));
+                p1.pieces = 999;
                 clearScreen();
                 cursor(0,0);
                 /* Écran de confirmation */
@@ -80,6 +82,19 @@ class Game extends Program{
                 String attente = readString();
                 game(tourActuel, p1, p2, maxTour, board, questions);
             } else if(equals(entreeUtilisateur,"2")){
+                clearScreen();
+                cursor(0,0);
+                println(FBLEU + "Study Party - Aide" + RESETCOLOR);
+                println("");
+                println(" Le but du jeu est de gagner en ayant plus d'étoiles ou de pièces que son adversaire! Pour gagner il suffit donc :");
+                println("- Soit d'avoir plus d'étoiles que son adversaire");
+                println("- Soit d'avoir plus de pièces (en cas d'égalité de nombre d'étoiles)");
+                println("");
+                println(" Chaque joueur devra avancer sur un plateau a l'aide d'un dé pour avancer et avoir des bonus, malus, acceder a la boutique d'objet (permettant entre autre d'acheter des étoiles ou des objets) et répondre a des questions, donnant des pièces en cas de bonne réponse.");
+                println("Bonne chance!");
+                println(FBLEU + " - Appuyer sur Entrée pour revenir au menu principal - " + RESETCOLOR);
+                String attente = readString();
+            } else if(equals(entreeUtilisateur,"3")){
                 clearScreen();
                 quitter = true;
             }
@@ -112,6 +127,8 @@ class Game extends Program{
                     delay(1250);
                 }
                 lancerEtMouvement(tourActuel, p1, p2, doubleLancer);
+            } else if(equals(entreeUtilisateur, "3")){
+                joueur.position = 12;
             }
             joueur.pieces = joueur.pieces + actionCase(questions, joueur);
             tourActuel++;
@@ -123,7 +140,8 @@ class Game extends Program{
         /* Affichage du gagnant */
         String gagnant = determinerGagnant(p1, p2);
         println("Merci d'avoir joué!");
-        println("Gagnant de la partie : " + gagnant);
+        println("Gagnant de la partie : " + VERT + gagnant + RESETCOLOR);
+        println(FBLEU + " - Appuyer sur Entrée pour revenir au menu principal - " + RESETCOLOR);
         String attente = readString();
     }
     
@@ -134,7 +152,7 @@ class Game extends Program{
         String entreeUtilisateur = ""; /* Pourquoi un String et non un int? parce que si on tappe un String durant le readInt, on a une exception et le programme s'arrête */
         while(!fin){
             entreeUtilisateur = readString();
-            if(equals(entreeUtilisateur,"1") || equals(entreeUtilisateur,"2")){
+            if(equals(entreeUtilisateur,"1") || equals(entreeUtilisateur,"2") || equals(entreeUtilisateur,"3")){
                 fin = true;
             }
         }
@@ -267,7 +285,7 @@ class Game extends Program{
 
     void printInventory(Inventaire i){
         for(int idx = 0; idx < length(i.type); idx++){
-            println("  - " + idx + 1 + " : " + nomObjet(i.type[idx]));
+            println("  - " + (idx + 1) + " : " + nomObjet(i.type[idx]));
         }
     }
 
@@ -289,6 +307,7 @@ class Game extends Program{
 	        lancer = lancer*2;
 	    }
         clearScreen();
+        cursor(0,0);
         println("Lancer : " + lancer);
         delay(1250);
         joueurActuel(tourActuel, p1, p2).position = bouger(joueurActuel(tourActuel, p1, p2).position, lancer);
@@ -326,11 +345,13 @@ class Game extends Program{
         int position = j.position;
         if(position == 4 || position == 9){
             clearScreen();
+            cursor(0,0);
             println(VERT + "Bonus!" + RESETCOLOR + " Ajout de 3 pièces.");
             delay(1250);
             return 3;
         } else if(position == 6 || position == 11){
             clearScreen();
+            cursor(0,0);
             println(ROUGE + "Malus!" + RESETCOLOR + " Perte de 3 pièces...");
             delay(1250);
             return -3;
@@ -361,6 +382,7 @@ class Game extends Program{
         String reponse = "";
         while(!fin){
             clearScreen();
+            cursor(0,0);
             println("Matière : " + questions[qnumber][1]);
             println("Question :\n" + questions[qnumber][2]);
             println("1. " + questions[qnumber][3]);
@@ -373,11 +395,13 @@ class Game extends Program{
         }
         if(equals(reponse, questions[qnumber][6])){
             clearScreen();
+            cursor(0,0);
             println(VERT + "Bonne réponse!" + RESETCOLOR + " +5 pièces");
             delay(1250);
             return 5;
         } else {
             clearScreen();
+            cursor(0,0);
             println(ROUGE + "Mauvaise réponse!" + RESETCOLOR + " 0 pièces");
             delay(1250);
             return 0;
@@ -403,6 +427,7 @@ class Game extends Program{
                     utiliserObjet(joueur, joueur.inventaire.type[0], autreJoueur, tourActuel);
                     joueur.inventaire.occupe[0] = false;
                     joueur.inventaire.type[0] = -1;
+                    return;
                 } else {
                     println("Pas d'objet dans cet emplacement");
                 }
@@ -411,6 +436,7 @@ class Game extends Program{
                     utiliserObjet(joueur, joueur.inventaire.type[1], autreJoueur, tourActuel);
                     joueur.inventaire.occupe[1] = false;
                     joueur.inventaire.type[1] = -1;
+                    return;
                 } else {
                     println("Pas d'objet dans cet emplacement");
                 }
@@ -419,6 +445,7 @@ class Game extends Program{
                     utiliserObjet(joueur, joueur.inventaire.type[2], autreJoueur, tourActuel);
                     joueur.inventaire.occupe[2] = false;
                     joueur.inventaire.type[2] = -1;
+                    return;
                 } else {
                     println("Pas d'objet dans cet emplacement");
                 }
