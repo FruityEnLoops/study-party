@@ -18,24 +18,28 @@ Index,Matiere,Question,Reponse1,Reponse2,Reponse3,ReponseCorrecte
 17,Histoire,Qui était le roi Soleil ?,Louis XIV,Napoléon,François 1er,1
 18,Histoire,Quelle est la date de la révolution française ?,701,700,1789,3
 19,Géographie,Quelle est la capitale de la France ?,Paris,Lille,Londres,1
-20,Maths,250 - 65 + 32 = _,232,127,233,2
-21,Maths,599 - 200 = _,399,299,499,1
-22,Maths,333 + 77 = _,400,401,410,3
-23,Maths,25 x 30 = _,750,600,675,1
-24,Maths,12 x 13 = _,155,156,157,2
-25,Maths,56312 x 0 + 1 = _,1,56312,56313,1
-26,Maths,2 x 2 x 2 x 2 = _,8,16,32,2
-27,Maths,12 x 3 + 3 = _,36,37,39,3
-28,Maths,56 _ 25 _ 12,> et >,< et >,- et =,1
-29,Maths,_ x 9 = 81,8,9,10,2
-30,Maths,25 x _ = 100,5,4,3,2
-31,Science,Quels sont les 3 différents états de l'eau ?,Solide Liquide et Gazeux,Chaud Froid et Tiède,il y en a 4,1
-32,Science,Quel est le satellite naturel de la Terre ?,Mars,Le Soleil,La Lune,3
-33,Science,A quelle catégorie appartient l'espèce humaine ?,Les invertébrés,Les mammifères,Les Dinosaures,2
-34,Géographie,Quelle est la capitale du Royaume-Uni ?,Paris,Douvres,Londres,3
-35,Géographie,Quelle est la capitale de la Belgique,Tournai,Londres,Bruxelles,3
-36,Histoire,Quelle était le nom de la France ?,La Gaule,l'Espagne,la Belgique,1
-37,Anglais,Comment dit-on ordinateur en anglais ?,Car,Computer,Tree,2
-38,Anglais,Comment dit-on lit en anglais ?,Bed,Desk,Tree,1
-39,Anglais,Comment dit-on chaise en anglais ?,Tree,Table,Chair,3
-40,Histoire,Qui a inventé l'école ?,Clovis,Napoléon,Charlemagne,3
+20,Science,Quels sont les 3 différents états de l'eau ?,Solide Liquide et Gazeux,Chaud Froid et Tiède,il y en a 4,1
+21,Science,Quel est le satellite naturel de la Terre ?,Mars,Le Soleil,La Lune,3
+22,Science,A quelle catégorie appartient l'espèce humaine ?,Les invertébrés,Les mammifères,Les Dinosaures,2
+23,Géographie,Quelle est la capitale du Royaume-Uni ?,Paris,Douvres,Londres,3
+24,Géographie,Quelle est la capitale de la Belgique,Tournai,Londres,Bruxelles,3
+25,Histoire,Quelle était le nom de la France ?,La Gaule,l'Espagne,la Belgique,1
+26,Anglais,Comment dit-on ordinateur en anglais ?,Car,Computer,Tree,2
+27,Anglais,Comment dit-on lit en anglais ?,Bed,Desk,Tree,1
+28,Anglais,Comment dit-on chaise en anglais ?,Tree,Table,Chair,3
+29,Histoire,Qui a inventé l'école ?,Clovis,Napoléon,Charlemagne,3
+30,Maths,Quel est le double de 1?,2,3,1,1
+31,Maths,Quel est le double de 3?,4,6,9,2
+32,Maths,Quel est le double de 5?,10,20,5,1
+33,Maths,Quel est la moitié de 2?,0,1,2,2
+34,Maths,Quel est la moitié de 4?,4,8,2,3
+35,Maths,Quel est la moitié de 6?,1,2,3,3
+36,Maths,Combien de côté à un triangle?,1,2,3,3
+37,Maths,Combien de côté à un rectangle?,3,4,5,2
+38,Maths,Combien de côté à un carré?,2,3,4,3
+39,Maths,Un carré a,4 côtés identiques,4 côtés différents,Les côtés égaux 2 a deux,1
+40,Maths,Un rectangle a,4 côtés identiques,4 côtés différents,Les côtés égaux 2 a deux,3
+41,Maths,42 a,6 dizaines,2 dizaines,4 dizaines,3
+42,Maths,89 a,9 dizaines,8 dizaines,7 dizaines,2
+43,Maths,Le nombre 38 a,8 unités,3 unités,6 unités,1
+44,Maths,Le nombre 15 a,2 unités,4 unités,5 unités,3
