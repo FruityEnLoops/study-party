@@ -1,4 +1,6 @@
 import extensions.CSVFile;
+import extensions.File;
+
 class StudyParty extends Program{
 
     final String ROUGE = "\033[31m";
@@ -10,38 +12,6 @@ class StudyParty extends Program{
     boolean doubleLancer = false;
 
     void algorithm(){
-        
-        /* Initialisation des ASCII Arts dans des listes */
-
-        String[] menuart = new String[15];
-        menuart[0] = "      ::::::::    :::::::::::    :::    :::        :::::::::     :::   ::: ";
-        menuart[1] = "    :+:    :+:       :+:        :+:    :+:        :+:    :+:    :+:   :+:  ";
-        menuart[2] = "   +:+              +:+        +:+    +:+        +:+    +:+     +:+ +:+    ";
-        menuart[3] = "  +#++:++#++       +#+        +#+    +:+        +#+    +:+      +#++:      ";
-        menuart[4] = "        +#+       +#+        +#+    +#+        +#+    +#+       +#+        ";
-        menuart[5] = "#+#    #+#       #+#        #+#    #+#        #+#    #+#       #+#         ";
-        menuart[6] = "########        ###         ########         #########        ###          ";
-        menuart[7] = "";
-        menuart[8] = "      :::::::::           :::         :::::::::    :::::::::::    :::   ::: ";
-        menuart[9] = "     :+:    :+:        :+: :+:       :+:    :+:       :+:        :+:   :+:  ";
-        menuart[10] = "    +:+    +:+       +:+   +:+      +:+    +:+       +:+         +:+ +:+    ";
-        menuart[11] = "   +#++:++#+       +#++:++#++:     +#++:++#:        +#+         +#++:       ";
-        menuart[12] = "  +#+             +#+     +#+     +#+    +#+       +#+           +#+        ";
-        menuart[13] = " #+#             #+#     #+#     #+#    #+#       #+#           #+#         ";
-        menuart[14] = "###             ###     ###     ###    ###       ###           ###          ";
-
-        String[] board = new String[11];
-        board[0] = "    ------>     1       2       3";
-        board[1] = "   0 [Début] - [Exo] - [Exo] - [Exo] ";
-        board[2] = "        /                          \\ ";
-        board[3] = " 12 [Boutique]                  [+3 Pièces] 4";
-        board[4] = "       |                             |";
-        board[5] = " 11 [-3 Pièces]                    [Exo] 5";
-        board[6] = "       |                             |";
-        board[7] = "  10 [Exo]                      [-3 Pièces] 6";
-        board[8] = "        \\                          /";
-        board[9] = "        [+3 Pièces] - [Exo] -  [Exo]";
-        board[10] ="             9        8        7";
 
         /* Initialisation des questions */
 
@@ -53,7 +23,7 @@ class StudyParty extends Program{
             clearScreen();
             cursor(0,0);
             boolean fin = false;
-            printart(menuart);
+            printart("menuart.txt");
             println("");
             println(FBLEU + "1. Jouer" + RESETCOLOR);
             println(FBLEU + "2. Aide" + RESETCOLOR);
@@ -68,7 +38,8 @@ class StudyParty extends Program{
                 cursor(0,0);
                 /* Définition des options de la partie par l'utilisateur */
                 println("Partie en combien de tours?");
-                int maxTour = readInt(); /* Il faudra remplacer ce readInt a terme par un readString */
+                boolean entreeCorrecte = false;
+                int maxTour = readIntMaisMieux();
                 Joueur p1 = creerJoueur(chooseName("Joueur 1"));
                 Joueur p2 = creerJoueur(chooseName("Joueur 2"));
                 p1.pieces = 999;
@@ -79,7 +50,7 @@ class StudyParty extends Program{
                 println("P2 : " + p2.nom);
                 println("Appuyer sur entrée pour démarrer la partie.");
                 String attente = readString();
-                game(tourActuel, p1, p2, maxTour, board, questions);
+                game(tourActuel, p1, p2, maxTour, questions);
             } else if(equals(entreeUtilisateur,"2")){
                 clearScreen();
                 cursor(0,0);
@@ -91,14 +62,14 @@ class StudyParty extends Program{
         }
     }
 
-    void game(int tourActuel, Joueur p1, Joueur p2, int maxTour, String[] board, String[][] questions){
+    void game(int tourActuel, Joueur p1, Joueur p2, int maxTour, String[][] questions){
         clearScreen();
         cursor(0,0);
         while(tourActuel <= maxTour){
 	        Joueur joueur = joueurActuel(tourActuel, p1, p2);
             Joueur autreJoueur = autreJoueur(joueur, p1, p2);
             /* Affichage en deux temps, le plateau puis les infos de la partie */
-            printart(board);
+            printart("board.txt");
             printstatus(tourActuel, p1, p2, maxTour);
             println("Appuyer sur entrée pour lancer le dé");
             String entreeUtilisateur = readString();
@@ -135,9 +106,13 @@ class StudyParty extends Program{
     }
 
     /* Affiche le contenu d'une liste. Utilisé pour afficher des textes plus "graphiques" */
-    void printart(String[] list){
-        for(int i = 0; i < length(list); i++){
-            println(list[i]);
+    void printart(String filename){
+        File fichier = newFile(filename);
+        String ligne = "";
+        ligne = readLine(fichier);
+        while(ligne != null){
+            println(ligne);
+            ligne = readLine(fichier);
         }
     }
 
@@ -150,7 +125,9 @@ class StudyParty extends Program{
             println("A " + p1.nom + " de jouer!");
         }
         println(FBLEU + "\n - Pièces - " + RESETCOLOR);
-        println(p1.nom + " : " + p1.pieces + " || " + p2.nom + " : " + p2.pieces);
+        println(p1.nom + " : " + JAUNE + p1.pieces + RESETCOLOR + " || " + p2.nom + " : " + JAUNE + p2.pieces + RESETCOLOR);
+        println(FBLEU + "\n - Étoiles - " + RESETCOLOR);
+        println(p1.nom + " : " + JAUNE + p1.etoiles + RESETCOLOR + " || " + p2.nom + " : " + JAUNE + p2.etoiles + RESETCOLOR);
         println(FBLEU + "\n - Position - " + RESETCOLOR);
         println(p1.nom + " : " + p1.position + " || " + p2.nom + " : " + p2.position);
     }
@@ -259,8 +236,9 @@ class StudyParty extends Program{
 	    }
         clearScreen();
         cursor(0,0);
-        println("Lancer : " + lancer);
-        delay(1250);
+        println("Lancer : " + lancer + "\n");
+        printart("dice" + lancer + ".txt");
+        delay(1500);
         joueurActuel(tourActuel, p1, p2).position = bouger(joueurActuel(tourActuel, p1, p2).position, lancer);
 	
     }
@@ -403,5 +381,22 @@ class StudyParty extends Program{
         println("Bonne chance!");
         println(FBLEU + " - Appuyer sur Entrée pour revenir au menu principal - " + RESETCOLOR);
         String attente = readString();
+    }
+
+    int readIntMaisMieux(){
+        boolean estCorrect = false;
+        while(true){
+            String e = readString();
+            for(int i = 0; i < length(e); i++){
+                if(charAt(e, i) >= '0' && charAt(e, i) <= '9'){
+                    estCorrect = true;
+                } else {
+                    estCorrect = false;
+                }
+            }
+            if(estCorrect){
+                return stringToInt(e);
+            }
+        }
     }
 }
