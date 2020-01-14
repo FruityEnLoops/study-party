@@ -71,7 +71,7 @@ class StudyParty extends Program{
             /* Affichage en deux temps, le plateau puis les infos de la partie */
             printart("board.txt");
             printstatus(tourActuel, p1, p2, maxTour);
-            println("Appuyer sur entrée pour lancer le dé");
+            println("\nAppuyer sur entrée pour lancer le dé.");
             String entreeUtilisateur = readString();
             lancerEtMouvement(tourActuel, p1, p2, false);    
             joueur.pieces = joueur.pieces + actionCase(questions, joueur);
@@ -316,6 +316,7 @@ class StudyParty extends Program{
             clearScreen();
             cursor(0,0);
             println("Matière : " + questions[qnumber][1]);
+            printart(questions[qnumber][1] + ".txt");
             println("Question :\n" + questions[qnumber][2]);
             println("1. " + questions[qnumber][3]);
             println("2. " + questions[qnumber][4]);
@@ -390,8 +391,22 @@ class StudyParty extends Program{
         println("- Soit d'avoir plus d'étoiles que son adversaire");
         println("- Soit d'avoir plus de pièces (en cas d'égalité de nombre d'étoiles)");
         println("");
+        delay(500);
         println(" Chaque joueur devra avancer sur un plateau a l'aide d'un dé pour avancer et avoir des bonus, malus, acceder a la boutique d'objet (permettant entre autre d'acheter des étoiles ou des objets) et répondre a des questions, donnant des pièces en cas de bonne réponse.");
+        println("");
+        delay(500);
+        println("Les joueurs peuvent acheter des objets pour gagner un avantage!");
+        println("- Pickpocket");
+        println("  Voler 10 pièces a son adversaire!");
+        println("- Dé en or");
+        println("  Permet de rejouer son tour!");
+        println("");
+        delay(500);
+        println("Chaque objet coute 15 pièces. A vous de bien gerer vos pièces pour mettre des batons dans les roues de votre adversaire et gagner!");
+        println("");
+        delay(500);
         println("Bonne chance!");
+        println("");
         println(FBLEU + " - Appuyer sur Entrée pour revenir au menu principal - " + RESETCOLOR);
         String attente = readString();
     }
