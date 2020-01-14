@@ -58,7 +58,7 @@ class StudyParty extends Program{
             println(FBLEU + "1. Jouer" + RESETCOLOR);
             println(FBLEU + "2. Aide" + RESETCOLOR);
             println(FBLEU + "3. Quitter" + RESETCOLOR);
-            String entreeUtilisateur = choix();
+            String entreeUtilisateur = choixmenu();
             clearScreen();
             cursor(0,0);
             if(equals(entreeUtilisateur,"1")){
@@ -100,13 +100,12 @@ class StudyParty extends Program{
             /* Affichage en deux temps, le plateau puis les infos de la partie */
             printart(board);
             printstatus(tourActuel, p1, p2, maxTour);
-            println("1. Lancer le dé");
-            println("2. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            String entreeUtilisateur = choix();
-            if(equals(entreeUtilisateur, "1")){
-                lancerEtMouvement(tourActuel, p1, p2, false);
-            } else if(equals(entreeUtilisateur, "2")){
+            println("Appuyer sur entrée pour lancer le dé");
+            String entreeUtilisateur = readString();
+            if(equals(entreeUtilisateur, "2")){
                 joueur.position = 12;
+            } else {
+                lancerEtMouvement(tourActuel, p1, p2, false);
             }
             joueur.pieces = joueur.pieces + actionCase(questions, joueur);
             tourActuel++;
@@ -123,9 +122,7 @@ class StudyParty extends Program{
         String attente = readString();
     }
     
-    String choix(){
-        /* Note : cette fonction permet de controller si l'utilisateur entre 1 ou 2.
-        On a pas besoin de plus, mais cette fonction sera (peut être) améliorée. */
+    String choixmenu(){
         boolean fin = false;
         String entreeUtilisateur = ""; /* Pourquoi un String et non un int? parce que si on tappe un String durant le readInt, on a une exception et le programme s'arrête */
         while(!fin){
@@ -377,7 +374,7 @@ class StudyParty extends Program{
                     }
                 } else {
                     if(j.pieces > 15){
-                        println("Acheté : " + nomObjet(toInt(objet)));
+                        println("Acheté : " + nomObjet(stringToInt(objet)));
                         // mettre effet des objets
                         delay(1250);
                         return -15;
@@ -394,16 +391,7 @@ class StudyParty extends Program{
         }
         return -1;
     }
-
-    int toInt(String s){
-        return ((int) charAt(s, 0)) - 48;
-    }
-
-    void testToInt(){
-        assertTrue(1 == toInt("1"));
-        assertFalse(1 == toInt("2"));
-    }
-
+    
     void aide(){
         println(FBLEU + "Study Party - Aide" + RESETCOLOR);
         println("");
