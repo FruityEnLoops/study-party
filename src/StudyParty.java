@@ -317,6 +317,8 @@ class StudyParty extends Program{
             cursor(0,0);
             println("Matière : " + questions[qnumber][1]);
             printart(questions[qnumber][1] + ".txt");
+            delay(1000);
+            println("");
             println("Question :\n" + questions[qnumber][2]);
             println("1. " + questions[qnumber][3]);
             println("2. " + questions[qnumber][4]);
