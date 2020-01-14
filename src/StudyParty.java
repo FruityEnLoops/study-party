@@ -358,9 +358,9 @@ class StudyParty extends Program{
         if(equals(reponse, questions[qnumber][6])){
             clearScreen();
             cursor(0,0);
-            println(VERT + "Bonne réponse!" + RESETCOLOR + " +5 pièces");
+            println(VERT + "Bonne réponse!" + RESETCOLOR + " + 10 pièces");
             delay(1250);
-            return 5;
+            return 10;
         } else {
             clearScreen();
             cursor(0,0);
