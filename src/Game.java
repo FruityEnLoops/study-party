@@ -3,9 +3,8 @@ class StudyParty extends Program{
 
     final String ROUGE = "\033[31m";
     final String VERT = "\033[32m";
-    final String BLEU = "\033[34m";
+    final String JAUNE = "\033[93m";
     final String RESETCOLOR = "\033[0m";
-    final String BOLD = "\033[1m";
     final String FBLEU = "\033[44m";
 
     boolean doubleLancer = false;
@@ -102,23 +101,11 @@ class StudyParty extends Program{
             printart(board);
             printstatus(tourActuel, p1, p2, maxTour);
             println("1. Lancer le dé");
-            println("2. Jouer un objet");
+            println("2. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             String entreeUtilisateur = choix();
             if(equals(entreeUtilisateur, "1")){
                 lancerEtMouvement(tourActuel, p1, p2, false);
             } else if(equals(entreeUtilisateur, "2")){
-                doubleLancer = false;
-                if(joueur.inventaire.occupe[0] || joueur.inventaire.occupe[0] || joueur.inventaire.occupe[0]){
-                    println("Choisis l'objet à utiliser :");
-                    printInventory(joueur.inventaire);
-                    choixDansInventaire(joueur, autreJoueur, tourActuel);
-                } else {
-                    clearScreen();
-                    println("Erreur : Aucun objet a jouer");
-                    delay(1250);
-                }
-                lancerEtMouvement(tourActuel, p1, p2, doubleLancer);
-            } else if(equals(entreeUtilisateur, "3")){
                 joueur.position = 12;
             }
             joueur.pieces = joueur.pieces + actionCase(questions, joueur);
@@ -246,7 +233,6 @@ class StudyParty extends Program{
         j.pieces = 0;
         j.etoiles = 0;
         j.position = 0;
-        j.inventaire = creerInventaire();
         return j;
     }
 
@@ -255,29 +241,6 @@ class StudyParty extends Program{
         assertEquals(0, j.pieces);
         assertEquals(0, j.etoiles);
         assertEquals(0, j.position);
-    }
-
-    Inventaire creerInventaire(){
-        Inventaire i = new Inventaire();
-        i.occupe = new boolean[]{false,false,false};
-        i.type = new int[]{-1,-1,-1};
-        return i;
-    }
-
-    void testCreerInventaire(){
-        Inventaire i = creerInventaire();
-        for(int j = 0; j < 3; j++){
-            assertFalse(i.occupe[j]);
-        }
-        for(int j = 0; j < 3; j++){
-            assertEquals(-1, i.type[j]);
-        }
-    }
-
-    void printInventory(Inventaire i){
-        for(int idx = 0; idx < length(i.type); idx++){
-            println("  - " + (idx + 1) + " : " + nomObjet(i.type[idx]));
-        }
     }
 
     String nomObjet(int type){
@@ -349,16 +312,10 @@ class StudyParty extends Program{
         } else if(position == 1 || position == 2 || position == 3 || position == 5 || position == 7 || position == 8 || position == 10){
             return question(questions);
         } else if(position == 12){
-            if(!j.inventaire.occupe[0] || !j.inventaire.occupe[0] || !j.inventaire.occupe[0]){
-                if(j.pieces > 15){
-                    return boutique(j);
-                } else {
-                    println("Désolé, mais tu n'a pas assez de pièces pour acheter un objet...");
-                    delay(1250);
-                    return 0;
-                }
+            if(j.pieces > 15){
+                return boutique(j);
             } else {
-                println("Désolé, mais tu n'a pas de place disponible dans ton inventaire!");
+                println("Désolé, mais tu n'a pas assez de pièces pour acheter un objet...");
                 delay(1250);
                 return 0;
             }
@@ -398,61 +355,6 @@ class StudyParty extends Program{
             return 0;
         }
     }
-    
-    void pickpocket(int tourActuel, Joueur joueur, Joueur autreJoueur) {
-        //Cet objet permet à son utilisateur de voler 10 pièces à son adversaire   
-        if(autreJoueur.pieces<10) { 
-            joueur.pieces += autreJoueur.pieces;
-            autreJoueur.pieces = 0;
-        } else{
-            joueur.pieces += 10;
-            autreJoueur.pieces -= 10;
-        }
-    }
-
-    void choixDansInventaire(Joueur joueur, Joueur autreJoueur, int tourActuel) {
-        while(true){
-            String item = readString();
-            if(equals(item, "1")){
-                if(joueur.inventaire.occupe[0]){
-                    utiliserObjet(joueur, joueur.inventaire.type[0], autreJoueur, tourActuel);
-                    joueur.inventaire.occupe[0] = false;
-                    joueur.inventaire.type[0] = -1;
-                    return;
-                } else {
-                    println("Pas d'objet dans cet emplacement");
-                }
-            } else if(equals(item, "2")){
-                if(joueur.inventaire.occupe[1]){
-                    utiliserObjet(joueur, joueur.inventaire.type[1], autreJoueur, tourActuel);
-                    joueur.inventaire.occupe[1] = false;
-                    joueur.inventaire.type[1] = -1;
-                    return;
-                } else {
-                    println("Pas d'objet dans cet emplacement");
-                }
-            } else if(equals(item, "3")){
-                if(joueur.inventaire.occupe[2]){
-                    utiliserObjet(joueur, joueur.inventaire.type[2], autreJoueur, tourActuel);
-                    joueur.inventaire.occupe[2] = false;
-                    joueur.inventaire.type[2] = -1;
-                    return;
-                } else {
-                    println("Pas d'objet dans cet emplacement");
-                }
-            }
-        }
-    }
-
-    void utiliserObjet(Joueur joueur, int type, Joueur autreJoueur, int tourActuel) {
-        if(type == 1) {
-            doubleLancer = true;
-        
-        }
-        else if(type == 2){
-            pickpocket(tourActuel, joueur, autreJoueur);
-        }        
-    }
 
     int boutique(Joueur j){
         println("Attention : vous ne pouvez acheter qu'un seul objet par visite");
@@ -460,6 +362,7 @@ class StudyParty extends Program{
         println("1. Dé en or   | 15 pièces");
         println("2. Pickpocket | 15 pièces");
         println("3. Étoile     | 25 pièces");
+        println("X. Sortir de la boutique");
         while(!choisi){
             String objet = readString();
             if(equals(objet, "1") || equals(objet, "2") || equals(objet, "3")){
@@ -475,8 +378,7 @@ class StudyParty extends Program{
                 } else {
                     if(j.pieces > 15){
                         println("Acheté : " + nomObjet(toInt(objet)));
-                        j.inventaire.occupe[emplacementDisponible(j)] = true;
-                        j.inventaire.type[emplacementDisponible(j)] = toInt(objet);
+                        // mettre effet des objets
                         delay(1250);
                         return -15;
                     } else {
@@ -491,16 +393,6 @@ class StudyParty extends Program{
             }
         }
         return -1;
-    }
-
-    int emplacementDisponible(Joueur j){
-        if(!j.inventaire.occupe[0]){
-            return 0;
-        } else if(!j.inventaire.occupe[1]){
-            return 1;
-        } else {
-            return 2;
-        }
     }
 
     int toInt(String s){

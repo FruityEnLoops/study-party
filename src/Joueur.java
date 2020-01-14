@@ -3,5 +3,4 @@ class Joueur{
     int pieces;
     int etoiles;
     int position;
-    Inventaire inventaire;
 }
