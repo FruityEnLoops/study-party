@@ -2,14 +2,13 @@ import extensions.CSVFile;
 import extensions.File;
 
 class StudyParty extends Program{
-
+    
+    int effet = 0;
     final String ROUGE = "\033[31m";
     final String VERT = "\033[32m";
     final String JAUNE = "\033[93m";
     final String RESETCOLOR = "\033[0m";
     final String FBLEU = "\033[44m";
-
-    boolean doubleLancer = false;
 
     void algorithm(){
 
@@ -66,6 +65,7 @@ class StudyParty extends Program{
         clearScreen();
         cursor(0,0);
         while(tourActuel <= maxTour){
+            effet = 0;
 	        Joueur joueur = joueurActuel(tourActuel, p1, p2);
             Joueur autreJoueur = autreJoueur(joueur, p1, p2);
             /* Affichage en deux temps, le plateau puis les infos de la partie */
@@ -73,13 +73,22 @@ class StudyParty extends Program{
             printstatus(tourActuel, p1, p2, maxTour);
             println("Appuyer sur entrée pour lancer le dé");
             String entreeUtilisateur = readString();
-            if(equals(entreeUtilisateur, "2")){
-                joueur.position = 12;
-            } else {
-                lancerEtMouvement(tourActuel, p1, p2, false);
-            }
+            lancerEtMouvement(tourActuel, p1, p2, false);    
             joueur.pieces = joueur.pieces + actionCase(questions, joueur);
             tourActuel++;
+            if(effet == 1){
+                tourActuel = tourActuel - 1;
+            } else if(effet == 2){
+                if(autreJoueur.pieces < 10){
+                    joueur.pieces = joueur.pieces + autreJoueur.pieces;
+                    autreJoueur.pieces = 0;
+                    effet = 0;
+                } else {
+                    joueur.pieces = joueur.pieces + 10;
+                    autreJoueur.pieces = autreJoueur.pieces - 10;
+                    effet = 0;
+                }
+            }
             clearScreen();
             cursor(0,0);
         }
@@ -219,7 +228,7 @@ class StudyParty extends Program{
 
     String nomObjet(int type){
         if(type == 1){
-            return "Dé en Or (double ton lancer)";
+            return "Dé en Or (permet de rejouer)";
         } else if(type == 2){
             return "Pickpocket (vole 10 pièces à ton adversaire)";
         } else if(type == -1){
@@ -353,8 +362,12 @@ class StudyParty extends Program{
                 } else {
                     if(j.pieces > 15){
                         println("Acheté : " + nomObjet(stringToInt(objet)));
-                        // mettre effet des objets
                         delay(1250);
+                        if(equals(objet, "1")){
+                            effet = 1;
+                        } else {
+                            effet = 2;
+                        }
                         return -15;
                     } else {
                         println("Pas assez de pièces...");
