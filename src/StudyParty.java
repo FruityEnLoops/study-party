@@ -9,6 +9,7 @@ class StudyParty extends Program{
     final String JAUNE = "\033[93m";
     final String RESETCOLOR = "\033[0m";
     final String FBLEU = "\033[44m";
+    final String BOLD = "\033[1m";
 
     void algorithm(){
 
@@ -23,10 +24,15 @@ class StudyParty extends Program{
             cursor(0,0);
             boolean fin = false;
             printart("menuart.txt");
+            delay(350);
             println("");
             println(FBLEU + "1. Jouer" + RESETCOLOR);
+            delay(50);
             println(FBLEU + "2. Aide" + RESETCOLOR);
-            println(FBLEU + "3. Quitter" + RESETCOLOR);
+            delay(50);
+            println(FBLEU + "3. Crédits" + RESETCOLOR);
+            delay(50);
+            println(FBLEU + "4. Quitter" + RESETCOLOR);
             String entreeUtilisateur = choixmenu();
             clearScreen();
             cursor(0,0);
@@ -41,7 +47,6 @@ class StudyParty extends Program{
                 int maxTour = readIntMaisMieux();
                 Joueur p1 = creerJoueur(chooseName("Joueur 1"));
                 Joueur p2 = creerJoueur(chooseName("Joueur 2"));
-                p1.pieces = 999;
                 clearScreen();
                 cursor(0,0);
                 /* Écran de confirmation */
@@ -54,7 +59,11 @@ class StudyParty extends Program{
                 clearScreen();
                 cursor(0,0);
                 aide();
-            } else if(equals(entreeUtilisateur,"3")){
+            } else if(equals(entreeUtilisateur, "3")){
+                clearScreen();
+                cursor(0,0);
+                credits();
+            } else if(equals(entreeUtilisateur,"4")){
                 clearScreen();
                 quitter = true;
             }
@@ -70,6 +79,9 @@ class StudyParty extends Program{
             Joueur autreJoueur = autreJoueur(joueur, p1, p2);
             /* Affichage en deux temps, le plateau puis les infos de la partie */
             printart("board.txt");
+            afficherSurCarte(p1, 1);
+            afficherSurCarte(p2, 2);
+            cursor(11, 0);
             printstatus(tourActuel, p1, p2, maxTour);
             println("\nAppuyer sur entrée pour lancer le dé.");
             String entreeUtilisateur = readString();
@@ -107,14 +119,14 @@ class StudyParty extends Program{
         String entreeUtilisateur = ""; /* Pourquoi un String et non un int? parce que si on tappe un String durant le readInt, on a une exception et le programme s'arrête */
         while(!fin){
             entreeUtilisateur = readString();
-            if(equals(entreeUtilisateur,"1") || equals(entreeUtilisateur,"2") || equals(entreeUtilisateur,"3")){
+            if(equals(entreeUtilisateur,"1") || equals(entreeUtilisateur,"2") || equals(entreeUtilisateur,"3") || equals(entreeUtilisateur,"4")){
                 fin = true;
             }
         }
         return entreeUtilisateur;
     }
 
-    /* Affiche le contenu d'une liste. Utilisé pour afficher des textes plus "graphiques" */
+    // Permet d'afficher un ASCII art
     void printart(String filename){
         File fichier = newFile(filename);
         String ligne = "";
@@ -125,17 +137,31 @@ class StudyParty extends Program{
         }
     }
 
+    // Permet d'afficher un ASCII art, mais avec comme origine un emplacement sur le terminal
+    void printart(String filename, int x, int y){
+        File fichier = newFile(filename);
+        String ligne = "";
+        int i = 0;
+        ligne = readLine(fichier);
+        while(ligne != null){
+            cursor(x + i, y);
+            println(ligne);
+            ligne = readLine(fichier);
+            i++;
+        }
+    }
+
     /* Affiche l'etat de la parti en cours : le tour actuel, qui joue, les pieces, la position des joueurs */
     void printstatus(int tourActuel, Joueur p1, Joueur p2, int maxTour){
-        println(FBLEU + "\nTour actuel : " + tourActuel + "/" + maxTour + RESETCOLOR);
+        print(FBLEU + "\nTour actuel : " + tourActuel + "/" + maxTour);
         if(tourActuel % 2 == 0){
-            println("A " + p2.nom + " de jouer!");
+            println(" // A " + p2.nom + " de jouer!" + RESETCOLOR);
         } else {
-            println("A " + p1.nom + " de jouer!");
+            println(" // A " + p1.nom + " de jouer!" + RESETCOLOR);
         }
-        println(FBLEU + "\n - Pièces - " + RESETCOLOR);
+        println(FBLEU + "\n - $$$ - " + RESETCOLOR);
         println(p1.nom + " : " + JAUNE + p1.pieces + RESETCOLOR + " || " + p2.nom + " : " + JAUNE + p2.pieces + RESETCOLOR);
-        println(FBLEU + "\n - Étoiles - " + RESETCOLOR);
+        println(FBLEU + "\n - ★★★ - " + RESETCOLOR);
         println(p1.nom + " : " + JAUNE + p1.etoiles + RESETCOLOR + " || " + p2.nom + " : " + JAUNE + p2.etoiles + RESETCOLOR);
         println(FBLEU + "\n - Position - " + RESETCOLOR);
         println(p1.nom + " : " + p1.position + " || " + p2.nom + " : " + p2.position);
@@ -316,10 +342,11 @@ class StudyParty extends Program{
             clearScreen();
             cursor(0,0);
             println("Matière : " + questions[qnumber][1]);
+            printart("question.txt", 3, 40);
+            cursor(3,0);
             printart(questions[qnumber][1] + ".txt");
-            delay(1000);
             println("");
-            println("Question :\n" + questions[qnumber][2]);
+            println(BOLD + "Question :\n" + RESETCOLOR + questions[qnumber][2]);
             println("1. " + questions[qnumber][3]);
             println("2. " + questions[qnumber][4]);
             println("3. " + questions[qnumber][5]);
@@ -357,6 +384,7 @@ class StudyParty extends Program{
                     if(j.pieces > 25){
                         println("Acheté : Étoile!");
                         j.etoiles = j.etoiles + 1;
+                        printart("etoile.txt");
                         delay(1250);
                         return -25;
                     } else {
@@ -365,12 +393,16 @@ class StudyParty extends Program{
                 } else {
                     if(j.pieces > 15){
                         println("Acheté : " + nomObjet(stringToInt(objet)));
-                        delay(1250);
                         if(equals(objet, "1")){
+                            print(JAUNE);
+                            printart("dés");
+                            print(RESETCOLOR);
                             effet = 1;
                         } else {
+                            printart("pickpocket.txt");
                             effet = 2;
                         }
+                        delay(1250);
                         return -15;
                     } else {
                         println("Pas assez de pièces...");
@@ -428,5 +460,63 @@ class StudyParty extends Program{
                 return stringToInt(e);
             }
         }
+    }
+
+    void credits(){
+        println(FBLEU + "Study Party - Crédits" + RESETCOLOR);
+        println("");
+        println("     Une idée de Loïc DEMAY");
+        println("        Programmation :");
+        println("          - Loïc DEMAY");
+        println("          - Enzo COCCHI");
+        println("");
+        println("   Projet réalisé dans le cadre");
+        println("  du DUT Informatique de l'IUT A");
+        println("       de Lille, semestre 1");
+        println("");
+        println(FBLEU + " - Appuyer sur Entrée pour revenir au menu principal - " + RESETCOLOR);
+        String attente = readString();
+    }
+
+    void afficherSurCarte(Joueur j, int pnumber){
+        print(FBLEU);
+        if(j.position == 1){
+            cursor(3, 16);
+            print("J" + pnumber);
+        } else if(j.position == 2){
+            cursor(3, 24);
+            print("J" + pnumber);
+        } else if(j.position == 3){
+            cursor(2, 38);
+            print("J" + pnumber);
+        } else if(j.position == 4){
+            cursor(4, 30);
+            print("J" + pnumber);
+        } else if(j.position == 5){
+            cursor(6, 33);
+            print("J" + pnumber);
+        } else if(j.position == 6){
+            cursor(8, 30);
+            print("J" + pnumber);
+        } else if(j.position == 7){
+            cursor(10, 38);
+            print("J" + pnumber);
+        } else if(j.position == 8){
+            cursor(9, 24);
+            print("J" + pnumber);
+        } else if(j.position == 9){
+            cursor(9, 14);
+            print("J" + pnumber);
+        } else if(j.position == 10){
+            cursor(8, 12);
+            print("J" + pnumber);
+        } else if(j.position == 11){
+            cursor(6, 17);
+            print("J" + pnumber);
+        } else if(j.position == 12){
+            cursor(4, 16);
+            print("J" + pnumber);
+        }
+        print(RESETCOLOR);
     }
 }

@@ -1,11 +1,11 @@
-    ------>     1       2       3";
-   0 [Début] - [Exo] - [Exo] - [Exo] ";
-        /                          \\ ";
- 12 [Boutique]                  [+3 Pièces] 4";
-       |                             |";
- 11 [-3 Pièces]                    [Exo] 5";
-       |                             |";
-  10 [Exo]                      [-3 Pièces] 6";
-        \\                          /";
-        [+3 Pièces] - [Exo] -  [Exo]";
-             9        8        7";
+    ------>     1       2       3
+ 0 [Début] --- [Exo] - [Exo] - [Exo]
+        /                          \\
+ 12 [Boutique]                  [+3 Pièces] 4
+       |                             |
+ 11 [-3 Pièces]                    [Exo] 5
+       |                             |
+  10 [Exo]                      [-3 Pièces] 6
+        \\                          /
+        [+3 Pièces] - [Exo] -  [Exo]
+             9        8        7
