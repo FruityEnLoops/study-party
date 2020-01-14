@@ -1,5 +1,5 @@
 import extensions.CSVFile;
-class Game extends Program{
+class StudyParty extends Program{
 
     final String ROUGE = "\033[31m";
     final String VERT = "\033[32m";
@@ -84,16 +84,7 @@ class Game extends Program{
             } else if(equals(entreeUtilisateur,"2")){
                 clearScreen();
                 cursor(0,0);
-                println(FBLEU + "Study Party - Aide" + RESETCOLOR);
-                println("");
-                println(" Le but du jeu est de gagner en ayant plus d'étoiles ou de pièces que son adversaire! Pour gagner il suffit donc :");
-                println("- Soit d'avoir plus d'étoiles que son adversaire");
-                println("- Soit d'avoir plus de pièces (en cas d'égalité de nombre d'étoiles)");
-                println("");
-                println(" Chaque joueur devra avancer sur un plateau a l'aide d'un dé pour avancer et avoir des bonus, malus, acceder a la boutique d'objet (permettant entre autre d'acheter des étoiles ou des objets) et répondre a des questions, donnant des pièces en cas de bonne réponse.");
-                println("Bonne chance!");
-                println(FBLEU + " - Appuyer sur Entrée pour revenir au menu principal - " + RESETCOLOR);
-                String attente = readString();
+                aide();
             } else if(equals(entreeUtilisateur,"3")){
                 clearScreen();
                 quitter = true;
@@ -519,5 +510,18 @@ class Game extends Program{
     void testToInt(){
         assertTrue(1 == toInt("1"));
         assertFalse(1 == toInt("2"));
+    }
+
+    void aide(){
+        println(FBLEU + "Study Party - Aide" + RESETCOLOR);
+        println("");
+        println(" Le but du jeu est de gagner en ayant plus d'étoiles ou de pièces que son adversaire! Pour gagner il suffit donc :");
+        println("- Soit d'avoir plus d'étoiles que son adversaire");
+        println("- Soit d'avoir plus de pièces (en cas d'égalité de nombre d'étoiles)");
+        println("");
+        println(" Chaque joueur devra avancer sur un plateau a l'aide d'un dé pour avancer et avoir des bonus, malus, acceder a la boutique d'objet (permettant entre autre d'acheter des étoiles ou des objets) et répondre a des questions, donnant des pièces en cas de bonne réponse.");
+        println("Bonne chance!");
+        println(FBLEU + " - Appuyer sur Entrée pour revenir au menu principal - " + RESETCOLOR);
+        String attente = readString();
     }
 }
