@@ -395,7 +395,7 @@ class StudyParty extends Program{
                         println("Acheté : " + nomObjet(stringToInt(objet)));
                         if(equals(objet, "1")){
                             print(JAUNE);
-                            printart("dés");
+                            printart("dés.txt");
                             print(RESETCOLOR);
                             effet = 1;
                         } else {

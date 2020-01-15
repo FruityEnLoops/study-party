@@ -22,67 +22,26 @@ Par Loïc DEMAY (Groupe D) & Enzo COCCHI (Groupe F).
 
 Jeu éducatif basé sur le concept de Mario Party.
 
-Le but est d'être le premier joueur a acheter une étoile a la fin du plateau. Le plateau est fait de cases qui peuvent faire perdre des pièces ou en gagner au joueur, ou qui font faire un exercice selon lequel on gagne plus ou moins de pièces (selon la réussite).
+Le but est d'être le joueur avec le plus détoile a la fin de la partie. Le plateau est fait de cases qui peuvent faire perdre des pièces ou en gagner au joueur, ou qui font faire un exercice donnant des pièces lors de bonnes réponses.
+
+### Déroulement du jeu
 
 - Pour avancer sur le plateau, le joueur lance le dès, puis avance x pas.
 
-- Pour acheter une étoile, il faut avoir 15 pièces ou plus et arriver a la fin du plateau. Si le joueur n'a pas asser de pièces, alors il lance un dé de nouveau mais recule x pas.
-
-- Les exercices consistent en des épreuves de différentes matières (Maths, Anglais, Francais). Le pourcentage de bonne réponse défini la réussite a l'épreuve et en conséquence le nombre de pièces données (e.g. : 3/6 = 50% = 0.5 * max_coins)
-
-- 2 joueurs en tour par tour.
-
-- A la fin de chaque tour, chaque joueur fait un exercice, comme si il était tombé sur une case exercice.
+- Les exercices consistent en des épreuves de différentes matières (Maths, Anglais, Histoire Géographie, Sciences) et donnent 10 pièces en cas de bonne réponse.
 
 - Le type d'exercice est determiné aléatoirement a chaque fois.
 
-### Loot table
+- 2 joueurs en tour par tour.
 
-Chaque case est tel que :
+- Une boutique sur la case 12 permet aux joueurs d'acheter des objets ou une étoile.
+	- Dé en or : permet de rejouer (15 pièces)
+	- Pickpocket : vole 10 pièces a l'adversaire (15 pièces)
+	- Étoile : 25 pièces
 
-| Type de case | Effet                                                               |
-| ------------ | ------------------------------------------------------------------- |
-| Bonus        | +3 💰                                                               |
-| Malus        | -3 💰                                                               |
-| Exercice     | ((Bonnes réponses / Total questions) * Max pièces par cases) + 3 💰 | 
-| Étoile       | +1 🌟 |
+Les objets sont effectifs a l'achat (donc le dé en or permet de rejouer après être tombé sur la case boutique, au lieu de ne pas avoir d'exercice / malus / bonus).
 
-### Idée de plateau
+### Condition de victoire
 
-Fais pour un terminal de 80x24 caractères.
-
-```
-                                      80 chars
-<------------------------------------------------------------------------------>
-|                                                                              | 1
-|  [Debut] - [B] - [M] - [E] - [E] - [B] - [E] - [M] - [E] - [B] - [M] - [S]   | 2
-|                               |                       |                      | 3
-|                              [B] - [E] - [E] - [M] - [E]                     | 4
-|                                                                              | 5
-|                                                                              | 6
-|  Tour au $JOUEUR                                                             | 7
-|  Joueur 1 : $p1coins                                                         | 8
-|  Joueur 2 : $p2coins                                                         | 9
-|  Tour n°$tour                                                                | 10
-|                                                                              | 11
-|  [Action possibles]                                                          | 12
-```
-
-### Taches a faire
-
-#### Base du jeu
-
-- Menu (Jouer, quitter, choisir le nom des joueurs)
-- Interface de jeu : plateau, choix du joueur pendant un tour, affichage des points / statut de la partie (numéro du tour / nombre max de tours)
-- Interface exercices : questions, affichage
-
-#### Additions possibles
-
-- Animations (lancement de dé, victoire / perte?)
-- ASCII Art par joueur, plutôt que de les catégoriser par un nom (personnages?)
-- Effets sonores? Musiques de fond?
-- Options (nombre max de tours, limites, conditions de victoire, taille du dé (1-6, 2-10...)),
-
-#### Improbable
-
-- Interface graphique
+Si un joueur a plus d'étoiles que l'autre, il gagne.
+Si les deux joueurs ont le même nombre d'étoiles, alors celui avec le plus de pièces gagne.
