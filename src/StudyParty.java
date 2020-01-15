@@ -3,6 +3,8 @@ import extensions.File;
 
 class StudyParty extends Program{
     
+    final String[][] questions = toTab(loadCSV("Questions.csv"));
+
     int effet = 0;
     final String ROUGE = "\033[31m";
     final String VERT = "\033[32m";
@@ -12,10 +14,6 @@ class StudyParty extends Program{
     final String BOLD = "\033[1m";
 
     void algorithm(){
-
-        /* Initialisation des questions */
-
-        String[][] questions = toTab(loadCSV("Questions.csv"));
 
         /* Menu */
         boolean quitter = false;
@@ -54,7 +52,7 @@ class StudyParty extends Program{
                 println("P2 : " + p2.nom);
                 println("Appuyer sur entrée pour démarrer la partie.");
                 String attente = readString();
-                game(tourActuel, p1, p2, maxTour, questions);
+                game(tourActuel, p1, p2, maxTour);
             } else if(equals(entreeUtilisateur,"2")){
                 clearScreen();
                 cursor(0,0);
@@ -70,7 +68,7 @@ class StudyParty extends Program{
         }
     }
 
-    void game(int tourActuel, Joueur p1, Joueur p2, int maxTour, String[][] questions){
+    void game(int tourActuel, Joueur p1, Joueur p2, int maxTour){
         clearScreen();
         cursor(0,0);
         while(tourActuel <= maxTour){
@@ -86,7 +84,7 @@ class StudyParty extends Program{
             println("\nAppuyer sur entrée pour lancer le dé.");
             String entreeUtilisateur = readString();
             lancerEtMouvement(tourActuel, p1, p2, false);    
-            joueur.pieces = joueur.pieces + actionCase(questions, joueur);
+            joueur.pieces = joueur.pieces + actionCase(joueur);
             tourActuel++;
             if(effet == 1){
                 tourActuel = tourActuel - 1;
@@ -257,11 +255,15 @@ class StudyParty extends Program{
             return "Dé en Or (permet de rejouer)";
         } else if(type == 2){
             return "Pickpocket (vole 10 pièces à ton adversaire)";
-        } else if(type == -1){
-            return "Pas d'objet";
         } else {
             return "Objet invalide";
         }
+    }
+
+    void testNomObjet(){
+        assertEquals("Dé en Or (permet de rejouer)", nomObjet(1));
+        assertEquals("Pickpocket (vole 10 pièces à ton adversaire)", nomObjet(2));
+        assertEquals("Objet invalide", nomObjet(-1));
     }
     
     void lancerEtMouvement(int tourActuel, Joueur p1, Joueur p2, boolean doubleLancer){
@@ -286,6 +288,13 @@ class StudyParty extends Program{
         }
     }
 
+    void testJoueurActuel(){
+        Joueur j1 = creerJoueur("Joueur 1");
+        Joueur j2 = creerJoueur("Joueur 2");
+        assertTrue(j1 == joueurActuel(1, j1, j2));
+        assertTrue(j2 == joueurActuel(2, j1, j2));
+    }
+
     Joueur autreJoueur(Joueur joueur, Joueur p1, Joueur p2){
         if(joueur == p1) {
             return p2;
@@ -304,7 +313,7 @@ class StudyParty extends Program{
         return tab;
     }
 
-    int actionCase(String[][] questions, Joueur j){
+    int actionCase(Joueur j){
         // Cette fonction renvoie l'action sur les pieces du joueur selon la case (les cases ne pouvant qu'affecter les pieces du joueur)
         int position = j.position;
         if(position == 4 || position == 9){
@@ -320,7 +329,7 @@ class StudyParty extends Program{
             delay(1250);
             return -3;
         } else if(position == 1 || position == 2 || position == 3 || position == 5 || position == 7 || position == 8 || position == 10){
-            return question(questions);
+            return question();
         } else if(position == 12){
             if(j.pieces > 15){
                 return boutique(j);
@@ -334,7 +343,15 @@ class StudyParty extends Program{
         }
     }
 
-    int question(String[][] questions){
+    void testActionCase(){
+        Joueur j = creerJoueur("Test");
+        j.position = 9;
+        assertTrue(3 == actionCase(j));
+        j.position = 6;
+        assertTrue(-3 == actionCase(j));
+    }
+
+    int question(){
         int qnumber = nombreAlea(1, 40);
         boolean fin = false;
         String reponse = "";
