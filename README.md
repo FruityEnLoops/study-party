@@ -34,14 +34,31 @@ Le but est d'être le joueur avec le plus détoile a la fin de la partie. Le pla
 
 - 2 joueurs en tour par tour.
 
-- Une boutique sur la case 12 permet aux joueurs d'acheter des objets ou une étoile.
-	- Dé en or : permet de rejouer (15 pièces)
-	- Pickpocket : vole 10 pièces a l'adversaire (15 pièces)
-	- Étoile : 25 pièces
-
-Les objets sont effectifs a l'achat (donc le dé en or permet de rejouer après être tombé sur la case boutique, au lieu de ne pas avoir d'exercice / malus / bonus).
-
 ### Condition de victoire
 
 Si un joueur a plus d'étoiles que l'autre, il gagne.
 Si les deux joueurs ont le même nombre d'étoiles, alors celui avec le plus de pièces gagne.
+
+### Build
+
+##### Linux
+
+**Requirements**
+- Java 8 *SDK*
+
+Lancer compile.sh.
+
+##### Windows
+Voir compile.sh. Les builds sont déjà fournis dans le repo.
+
+### Run
+
+**Requirements**
+- Java 8
+
+##### Linux
+Lancer run.sh.
+
+##### Windows
+`cd classes`
+`java -cp "..\lib\ap.jar" StudyParty`
